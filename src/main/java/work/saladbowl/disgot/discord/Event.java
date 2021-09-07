@@ -1,11 +1,11 @@
-package net.shmn7iii.disgot.discord;
+package work.saladbowl.disgot.discord;
 
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import net.shmn7iii.disgot.Config;
-import net.shmn7iii.disgot.MessageSync;
-import net.shmn7iii.disgot.spigot.whitelist;
+import work.saladbowl.disgot.Config;
+import work.saladbowl.disgot.MessageSync;
+import work.saladbowl.disgot.spigot.whitelist;
 import org.bukkit.Bukkit;
 
 public class Event extends ListenerAdapter {
@@ -27,7 +27,7 @@ public class Event extends ListenerAdapter {
 
     @Override
     public void onReady(ReadyEvent e){
-        MessageSync.sendMessage2disc("**[Sync]** Server launched.");
-        Bukkit.getLogger().info("[Disgot] BOT is loaded.");
+        MessageSync.sendMessage2disc(":green_circle: サーバーが起動しました");
+        Bukkit.getLogger().info(":green_circle: Botが起動しました。");
     }
 }

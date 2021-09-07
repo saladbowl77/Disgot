@@ -1,20 +1,20 @@
-package net.shmn7iii.disgot;
+package work.saladbowl.disgot;
 
 import net.dv8tion.jda.api.entities.TextChannel;
-import net.shmn7iii.disgot.discord.discmain;
+import work.saladbowl.disgot.discord.discmain;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 
 public class MessageSync {
 
     public static void SyncMessage2spi(String guild, String name, String message){
-        Bukkit.broadcastMessage(""+ChatColor.GREEN+ChatColor.BOLD + "[Sync]" +ChatColor.RESET + " <" + name +"> " +message );
+        Bukkit.broadcastMessage("<" + name + "> " + message );
     }
 
 
     public static void SyncMessage2disc(String name,String message) {
         if(getTextChannel()!=null){
-            getTextChannel().sendMessage("**[Sync]** <" + name + "> " + message).queue();
+            getTextChannel().sendMessage("<" + name + "> " + message).queue();
         }
     }
 

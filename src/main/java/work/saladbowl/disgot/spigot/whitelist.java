@@ -1,4 +1,4 @@
-package net.shmn7iii.disgot.spigot;
+package work.saladbowl.disgot.spigot;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;

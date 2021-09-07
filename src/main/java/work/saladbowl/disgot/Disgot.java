@@ -1,7 +1,7 @@
-package net.shmn7iii.disgot;
+package work.saladbowl.disgot;
 
-import net.shmn7iii.disgot.discord.discmain;
-import net.shmn7iii.disgot.spigot.Event;
+import work.saladbowl.disgot.discord.discmain;
+import work.saladbowl.disgot.spigot.Event;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import javax.security.auth.login.LoginException;
@@ -27,7 +27,7 @@ public final class Disgot extends JavaPlugin {
     @Override
     public void onDisable() {
         getLogger().info("Goodbye!");
-        MessageSync.sendMessage2disc("**[Sync]** Server closed.");
+        MessageSync.sendMessage2disc(":red_circle: サーバーを停止しました");
         discmain.jda.shutdown();
     }
 }

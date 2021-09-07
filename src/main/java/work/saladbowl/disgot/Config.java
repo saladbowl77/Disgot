@@ -1,4 +1,4 @@
-package net.shmn7iii.disgot;
+package work.saladbowl.disgot;
 
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -17,3 +17,4 @@ public class Config {
         WHITELIST_CHANNEL = config.getString("WHITELIST_CHANNEL");
     }
 }
+

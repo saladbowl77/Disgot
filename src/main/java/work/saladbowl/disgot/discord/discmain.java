@@ -1,8 +1,8 @@
-package net.shmn7iii.disgot.discord;
+package work.saladbowl.disgot.discord;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
-import net.shmn7iii.disgot.Config;
+import work.saladbowl.disgot.Config;
 
 import javax.security.auth.login.LoginException;
 

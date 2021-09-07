@@ -4,19 +4,19 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>net.shmn7iii</groupId>
+    <groupId>work.saladbowl</groupId>
     <artifactId>Disgot</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.3.2</version>
     <packaging>jar</packaging>
 
     <name>Disgot</name>
 
-    <description>Con sev and disc</description>
+    <description>Disgot remake by saladbowl</description>
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-    <url>www.shmn7iii.net</url>
+    <url>saladbowl.work</url>
 
     <build>
         <plugins>
@@ -74,7 +74,7 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.16.5-R0.1-SNAPSHOT</version>
+            <version>1.17.1-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
