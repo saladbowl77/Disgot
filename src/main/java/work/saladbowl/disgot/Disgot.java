@@ -27,7 +27,7 @@ public final class Disgot extends JavaPlugin {
     @Override
     public void onDisable() {
         getLogger().info("Goodbye!");
-        MessageSync.sendMessage2disc(":red_circle: サーバーを停止しました");
+        MessageSync.sendMessage2disc(Config.SI_CLOSE_MESS);
         discmain.jda.shutdown();
     }
 }

@@ -1,6 +1,8 @@
 package work.saladbowl.disgot.spigot;
 
+import org.bukkit.Bukkit;
 import work.saladbowl.disgot.Disgot;
+import work.saladbowl.disgot.Config;
 import work.saladbowl.disgot.MessageSync;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -9,6 +11,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerBedEnterEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.Material;
@@ -26,14 +29,18 @@ public class Event  implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e){
-        String playerName = e.getPlayer().getDisplayName();
-        MessageSync.sendMessage2disc(playerName + " がゲームに参加しました!いらっしゃい!");
+        if (Config.UI_USER_NOTICE_BOOL.equals("true")){
+            String playerName = e.getPlayer().getDisplayName();
+            MessageSync.sendMessage2disc(playerName + Config.UI_JOIN_MESS);
+        }
     }
 
     @EventHandler
     public void onQuit(PlayerQuitEvent e){
-        String playerName = e.getPlayer().getDisplayName();
-        MessageSync.sendMessage2disc(playerName + " がゲームを退出しました。ばいばーい!また来てね");
+        if (Config.UI_USER_NOTICE_BOOL.equals("true")) {
+            String playerName = e.getPlayer().getDisplayName();
+            MessageSync.sendMessage2disc(playerName + Config.UI_LEAVE_MESS);
+        }
     }
 
     @EventHandler
@@ -44,18 +51,28 @@ public class Event  implements Listener {
 
     @EventHandler
     public void onPlayerChat(PlayerCommandPreprocessEvent e){
-        String playerName = e.getPlayer().getDisplayName();
-        String message = e.getMessage();
-        MessageSync.sendMessage2disc(playerName + "がコマンドを使用した! : " + message);
+        if (Config.CMD_NOTICE_BOOL.equals("true")){
+            String playerName = e.getPlayer().getDisplayName();
+            String message = e.getMessage();
+            MessageSync.sendMessage2disc(playerName + message);
+        }
     }
 
     @EventHandler
     public void onPlayerJoin(BlockBreakEvent e) {
         String playerName = e.getPlayer().getDisplayName();
         if (e.getBlock().getType() == Material.DIAMOND_ORE || e.getBlock().getType() == Material.DEEPSLATE_DIAMOND_ORE ) {
+            Bukkit.broadcastMessage(playerName + "がダイヤモンドを見つけた!");
             MessageSync.sendMessage2disc(playerName + "がダイヤモンドを見つけた!");
         } else if (e.getBlock().getType() == Material.EMERALD_ORE || e.getBlock().getType() == Material.DEEPSLATE_EMERALD_ORE) {
+            Bukkit.broadcastMessage(playerName + "がエメラルドを見つけた!");
             MessageSync.sendMessage2disc(playerName + "がエメラルドを見つけた!");
         }
+    }
+
+    @EventHandler
+    public void getBedEnterResult(PlayerBedEnterEvent e){
+        String playerName = e.getPlayer().getDisplayName();
+        Bukkit.broadcastMessage(playerName + "は寝ようとしている...");
     }
 }

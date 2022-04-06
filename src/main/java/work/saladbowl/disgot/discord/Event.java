@@ -17,7 +17,12 @@ public class Event extends ListenerAdapter {
             String guild = e.getGuild().getName();
             String name = e.getAuthor().getName();
             String message = e.getMessage().getContentDisplay();
-            MessageSync.SyncMessage2spi(guild,name,message);
+            if (message.equals("")){
+                String imageUrl = e.getMessage().getAttachments().get(0).getUrl();
+                MessageSync.SyncMessage2spi(guild,name,imageUrl);
+            } else {
+                MessageSync.SyncMessage2spi(guild,name,message);
+            }
         }
         else if(e.getChannel().getId().equals(Config.WHITELIST_CHANNEL)){
             String message = e.getMessage().getContentDisplay();
@@ -27,7 +32,7 @@ public class Event extends ListenerAdapter {
 
     @Override
     public void onReady(ReadyEvent e){
-        MessageSync.sendMessage2disc(":green_circle: サーバーが起動しました");
-        Bukkit.getLogger().info(":green_circle: Botが起動しました。");
+        MessageSync.sendMessage2disc(Config.SI_STAT_MESS);
+        Bukkit.getLogger().info("Disgotが起動しました。");
     }
 }

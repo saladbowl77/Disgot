@@ -8,13 +8,18 @@ import org.bukkit.ChatColor;
 public class MessageSync {
 
     public static void SyncMessage2spi(String guild, String name, String message){
-        Bukkit.broadcastMessage("<" + name + "> " + message );
+        Bukkit.getLogger().info(guild + name + message);
+        if(!Config.MT_DISCORD_ONLY.equals(message.substring(0,1))){
+            String sendMessage = Config.MT_D2M.replace("&{UserName}",name).replace("&{message}",message);
+            Bukkit.broadcastMessage(sendMessage);
+        }
     }
 
 
     public static void SyncMessage2disc(String name,String message) {
-        if(getTextChannel()!=null){
-            getTextChannel().sendMessage("<" + name + "> " + message).queue();
+        if(getTextChannel()!=null && !Config.MT_MINECRAFT_ONLY.equals(message.substring(0,1))){
+            String sendMessage = Config.MT_M2D.replace("&{UserName}",name).replace("&{message}",message);
+            getTextChannel().sendMessage(sendMessage).queue();
         }
     }
 
