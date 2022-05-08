@@ -19,7 +19,7 @@ public class Event extends ListenerAdapter {
             String message = e.getMessage().getContentDisplay();
             if (message.equals("")){
                 String imageUrl = e.getMessage().getAttachments().get(0).getUrl();
-                MessageSync.SyncMessage2spi(guild,name,imageUrl);
+                MessageSync.SyncMessage2spiUrl(guild,name,imageUrl,imageUrl);
             } else {
                 MessageSync.SyncMessage2spi(guild,name,message);
             }
