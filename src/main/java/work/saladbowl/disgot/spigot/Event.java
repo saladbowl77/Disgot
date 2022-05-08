@@ -72,7 +72,9 @@ public class Event  implements Listener {
 
     @EventHandler
     public void getBedEnterResult(PlayerBedEnterEvent e){
-        String playerName = e.getPlayer().getDisplayName();
-        Bukkit.broadcastMessage(playerName + "は寝ようとしている...");
+        if (e.getBedEnterResult() == PlayerBedEnterEvent.BedEnterResult.OK) {
+            String playerName = e.getPlayer().getDisplayName();
+            Bukkit.broadcastMessage(playerName + "は寝ようとしている...");
+        }
     }
 }
