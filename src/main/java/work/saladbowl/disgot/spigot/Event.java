@@ -60,21 +60,25 @@ public class Event  implements Listener {
 
     @EventHandler
     public void onPlayerJoin(BlockBreakEvent e) {
-        String playerName = e.getPlayer().getDisplayName();
-        if (e.getBlock().getType() == Material.DIAMOND_ORE || e.getBlock().getType() == Material.DEEPSLATE_DIAMOND_ORE ) {
-            Bukkit.broadcastMessage(playerName + "がダイヤモンドを見つけた!");
-            MessageSync.sendMessage2disc(playerName + "がダイヤモンドを見つけた!");
-        } else if (e.getBlock().getType() == Material.EMERALD_ORE || e.getBlock().getType() == Material.DEEPSLATE_EMERALD_ORE) {
-            Bukkit.broadcastMessage(playerName + "がエメラルドを見つけた!");
-            MessageSync.sendMessage2disc(playerName + "がエメラルドを見つけた!");
+        if (Config.ORE_GET_NOTICE_MINECRAFT.equals("true") || Config.ORE_GET_NOTICE_DISCORD.equals("true")) {
+            String playerName = e.getPlayer().getDisplayName();
+            if (e.getBlock().getType() == Material.DIAMOND_ORE || e.getBlock().getType() == Material.DEEPSLATE_DIAMOND_ORE) {
+                if (Config.ORE_GET_NOTICE_MINECRAFT.equals("true")) Bukkit.broadcastMessage(playerName + "がダイヤモンドを見つけた!");
+                if (Config.ORE_GET_NOTICE_DISCORD.equals("true")) MessageSync.sendMessage2disc(playerName + "がダイヤモンドを見つけた!");
+            } else if (e.getBlock().getType() == Material.EMERALD_ORE || e.getBlock().getType() == Material.DEEPSLATE_EMERALD_ORE) {
+                if (Config.ORE_GET_NOTICE_MINECRAFT.equals("true")) Bukkit.broadcastMessage(playerName + "がエメラルドを見つけた!");
+                if (Config.ORE_GET_NOTICE_DISCORD.equals("true")) MessageSync.sendMessage2disc(playerName + "がエメラルドを見つけた!");
+            }
         }
     }
 
     @EventHandler
     public void getBedEnterResult(PlayerBedEnterEvent e){
-        if (e.getBedEnterResult() == PlayerBedEnterEvent.BedEnterResult.OK) {
-            String playerName = e.getPlayer().getDisplayName();
-            Bukkit.broadcastMessage(playerName + "は寝ようとしている...");
+        if(Config.BED_SLEEP_NOTICE.equals("true")) {
+            if (e.getBedEnterResult() == PlayerBedEnterEvent.BedEnterResult.OK) {
+                String playerName = e.getPlayer().getDisplayName();
+                Bukkit.broadcastMessage(playerName + "は寝ようとしている...");
+            }
         }
     }
 }

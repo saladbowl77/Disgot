@@ -27,6 +27,11 @@ public class Config {
     public static String CMD_NOTICE_BOOL;
     public static String CMD_NOTICE_MESS;
 
+    public static String ORE_GET_NOTICE_MINECRAFT;
+    public static String ORE_GET_NOTICE_DISCORD;
+
+    public static String BED_SLEEP_NOTICE;
+
     public static void load() {
         FileConfiguration config = Disgot.plugin.getConfig();
         TOKEN = config.getString("TOKEN");
@@ -48,6 +53,11 @@ public class Config {
 
         CMD_NOTICE_BOOL = config.getString("CMD.CMD_NOTICE_BOOL");
         CMD_NOTICE_MESS = config.getString("CMD.CMD_NOTICE_MESS");
+
+        ORE_GET_NOTICE_MINECRAFT = config.getString("ORE.GET_NOTICE.SEND_MINECRAFT");
+        ORE_GET_NOTICE_DISCORD = config.getString("ORE.GET_NOTICE.SEND_DISCORD");
+
+        BED_SLEEP_NOTICE = config.getString("BED.SLEEP_NOTICE");
     }
 }
 
