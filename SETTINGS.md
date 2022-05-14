@@ -20,6 +20,12 @@ MESSAGE_TYPE:
 CMD:
   CMD_NOTICE_BOOL : "true"
   CMD_NOTICE_MESS : "がコマンドを利用した! : "
+ORE:
+  GET_NOTICE:
+    SEND_MINECRAFT: "true"
+    SEND_DISCORD": "true"
+BED:
+  SLEEP_NOTICE: "true"
 ```
 
 ## 各種項目内容
@@ -67,3 +73,15 @@ CMD:
 |----|----|----|----|
 |CMD_NOTICE_BOOL|String(bool)|コマンドをDiscordに送信するか否か|"true"|
 |CMD_NOTICE_MESS|String|コマンド送信時に送るメッセージ|"がコマンドを利用した! : "|
+  
+#### ORE
+##### GET_NOTICE
+|key name|type|about|default|
+|----|----|----|----|
+|SEND_MINECRAFT|String(bool)|Minecraftに鉱石採取通知を送信するか。|"true"|
+|SEND_DISCORD|String(bool)|Discordに鉱石採取通知を送信するか。|"true"|
+  
+#### BED
+|key name|type|about|default|
+|----|----|----|----|
+|SLEEP_NOTICE|String(bool)|ベッド就寝通知を送信するか。|"true"|
