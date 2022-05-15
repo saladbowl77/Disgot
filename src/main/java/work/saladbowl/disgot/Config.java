@@ -8,6 +8,8 @@ public class Config {
     public Config(Disgot instance) { plugin = instance; }
 
     public static String TOKEN;
+    public static String SERVER_ID;
+    public static String BOT_STATUS;
     public static String MESSAGE_SYNC_CHANNEL;
     public static String WHITELIST_CHANNEL;
 
@@ -32,9 +34,13 @@ public class Config {
 
     public static String BED_SLEEP_NOTICE;
 
+    public static String DISCORD_CMD_PLAYER_LIST;
+
     public static void load() {
         FileConfiguration config = Disgot.plugin.getConfig();
         TOKEN = config.getString("TOKEN");
+        SERVER_ID = config.getString("SERVER_ID");
+        BOT_STATUS = config.getString("BOT_STATUS");
         MESSAGE_SYNC_CHANNEL = config.getString("MESSAGE_SYNC_CHANNEL");
         WHITELIST_CHANNEL = config.getString("WHITELIST_CHANNEL");
 
@@ -58,6 +64,8 @@ public class Config {
         ORE_GET_NOTICE_DISCORD = config.getString("ORE.GET_NOTICE.SEND_DISCORD");
 
         BED_SLEEP_NOTICE = config.getString("BED.SLEEP_NOTICE");
+
+        DISCORD_CMD_PLAYER_LIST = config.getString("DISCORD_CMD.PLAYER_LIST");
     }
 }
 

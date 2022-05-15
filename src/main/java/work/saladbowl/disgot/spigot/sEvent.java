@@ -16,9 +16,15 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.Material;
 
-public class Event  implements Listener {
+import java.lang.reflect.Array;
+
+public class sEvent implements Listener {
     public static Disgot plugin;
-    public Event(Disgot instance) { plugin = instance; }
+    public static Integer JOIN_PLAYERS;
+    public static Integer MAX_PLAYERS;
+    public static StringBuilder PLAYERS_LIST;
+
+    public sEvent(Disgot instance) { plugin = instance; }
 
     @EventHandler
     public void onPlayerChat(AsyncPlayerChatEvent e){
@@ -29,7 +35,7 @@ public class Event  implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e){
-        if (Config.UI_USER_NOTICE_BOOL.equals("true")){
+        if (Config.UI_USER_NOTICE_BOOL.equals("true")) {
             String playerName = e.getPlayer().getDisplayName();
             MessageSync.sendMessage2disc(playerName + Config.UI_JOIN_MESS);
         }
@@ -80,5 +86,17 @@ public class Event  implements Listener {
                 Bukkit.broadcastMessage(playerName + "は寝ようとしている...");
             }
         }
+    }
+
+    public static String getPlayers(){
+        JOIN_PLAYERS = Bukkit.getOnlinePlayers().toArray().length;
+        MAX_PLAYERS = Bukkit.getMaxPlayers();
+        StringBuilder sb = new StringBuilder("");
+        for (Player p : Bukkit.getOnlinePlayers()) {sb.append("- ").append(p.getName()).append("\n");}
+        PLAYERS_LIST = sb;
+
+        Bukkit.getLogger().warning(JOIN_PLAYERS + ":" + MAX_PLAYERS + ":" + PLAYERS_LIST);
+
+        return "現在のプレイヤー数は" + JOIN_PLAYERS + "/" + MAX_PLAYERS + "\n" + PLAYERS_LIST;
     }
 }

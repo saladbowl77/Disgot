@@ -1,7 +1,7 @@
 package work.saladbowl.disgot;
 
 import work.saladbowl.disgot.discord.discmain;
-import work.saladbowl.disgot.spigot.Event;
+import work.saladbowl.disgot.spigot.sEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import javax.security.auth.login.LoginException;
@@ -13,7 +13,7 @@ public final class Disgot extends JavaPlugin {
     @Override
     public void onEnable() {
         plugin = this;
-        getServer().getPluginManager().registerEvents(new Event(this), this);
+        getServer().getPluginManager().registerEvents(new sEvent(this), this);
         saveDefaultConfig();
         Config.load();
         getLogger().info("Hello!");
