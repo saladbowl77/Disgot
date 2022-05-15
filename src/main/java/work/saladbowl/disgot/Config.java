@@ -34,8 +34,6 @@ public class Config {
 
     public static String BED_SLEEP_NOTICE;
 
-    public static String DISCORD_CMD_PLAYER_LIST;
-
     public static void load() {
         FileConfiguration config = Disgot.plugin.getConfig();
         TOKEN = config.getString("TOKEN");
@@ -64,8 +62,6 @@ public class Config {
         ORE_GET_NOTICE_DISCORD = config.getString("ORE.GET_NOTICE.SEND_DISCORD");
 
         BED_SLEEP_NOTICE = config.getString("BED.SLEEP_NOTICE");
-
-        DISCORD_CMD_PLAYER_LIST = config.getString("DISCORD_CMD.PLAYER_LIST");
     }
 }
 
