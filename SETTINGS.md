@@ -2,6 +2,7 @@
 ## デフォルト設定
 ```yml
 TOKEN: XXXXXXXXXXX.XXXXXX.XXXXXXXXXXX
+BOT_STATUS: "テスト"
 MESSAGE_SYNC_CHANNEL: XXXXXXXXXXX
 WHITELIST_CHANNEL: XXXXXXXXXXX
 SERVER_INFO:
@@ -32,6 +33,7 @@ BED:
 |key name|type|about|default|
 |----|----|----|----|
 |TOKEN|String|Discord Token|XXXXXXXXXXX.XXXXXX.XXXXXXXXXXX|
+|BOT_STATUS|String|Botのステータス|テスト|
 |MESSAGE_SYNC_CHANNEL|String|メッセージを送信するチャンネル|XXXXXXXXXXX|
 |WHITELIST_CHANNEL|String|ホワイトリスト編集のチャンネル|XXXXXXXXXXX|
 
