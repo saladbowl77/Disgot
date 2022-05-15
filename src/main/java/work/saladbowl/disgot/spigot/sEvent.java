@@ -16,13 +16,9 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.Material;
 
-import java.lang.reflect.Array;
 
 public class sEvent implements Listener {
     public static Disgot plugin;
-    public static Integer JOIN_PLAYERS;
-    public static Integer MAX_PLAYERS;
-    public static StringBuilder PLAYERS_LIST;
 
     public sEvent(Disgot instance) { plugin = instance; }
 
@@ -89,14 +85,10 @@ public class sEvent implements Listener {
     }
 
     public static String getPlayers(){
-        JOIN_PLAYERS = Bukkit.getOnlinePlayers().toArray().length;
-        MAX_PLAYERS = Bukkit.getMaxPlayers();
+        Integer JOIN_PLAYERS = Bukkit.getOnlinePlayers().toArray().length;
+        Integer MAX_PLAYERS = Bukkit.getMaxPlayers();
         StringBuilder sb = new StringBuilder("");
         for (Player p : Bukkit.getOnlinePlayers()) {sb.append("- ").append(p.getName()).append("\n");}
-        PLAYERS_LIST = sb;
-
-        Bukkit.getLogger().warning(JOIN_PLAYERS + ":" + MAX_PLAYERS + ":" + PLAYERS_LIST);
-
-        return "現在のプレイヤー数は" + JOIN_PLAYERS + "/" + MAX_PLAYERS + "\n" + PLAYERS_LIST;
+        return "現在のプレイヤー数は" + JOIN_PLAYERS + "/" + MAX_PLAYERS + "\n" + sb;
     }
 }
