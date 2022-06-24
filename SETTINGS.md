@@ -9,8 +9,8 @@ WHITELIST_CHANNEL: XXXXXXXXXXX
 SERVER_STATUS:
   SYNC_BOOL: "false"
   SYNC_CHANNEL: XXXXXXXXXXX
-  ENABLE_TEXT: "false"
-  DISABLE_TEXT: "false"
+  ENABLE_TEXT: "🟢サーバーが起動中"
+  DISABLE_TEXT: "🔴サーバーが停止中"
 SERVER_INFO:
   SERVER_NOTICE_BOOL : "true"
   STAT_MESS : ":green_circle: サーバーが起動しました"
