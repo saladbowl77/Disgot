@@ -1,6 +1,7 @@
 package work.saladbowl.disgot;
 
 import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.VoiceChannel;
 import work.saladbowl.disgot.discord.discmain;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -63,7 +64,22 @@ public class MessageSync {
             }
         }
         catch (Exception e) {
-            Bukkit.getLogger().warning("Cannot find such channel ID. (そのIDのチャンネルは見つかりませんでした) : "+Config.MESSAGE_SYNC_CHANNEL);
+            Bukkit.getLogger().warning("Cannot find such channel ID. (そのIDのテキストチャンネルは見つかりませんでした) : "+Config.MESSAGE_SYNC_CHANNEL);
+            return null;
+        }
+    }
+
+    public static VoiceChannel getServerStatusChannel(){
+        if (Config.STATUS_SYNC_BOOL.equals("true")){
+            try{
+                VoiceChannel voiceChannel = discmain.jda.getVoiceChannelById(Config.STATUS_SYNC_CHANNEL);
+                return voiceChannel;
+            }
+            catch (Exception e) {
+                Bukkit.getLogger().warning("Cannot find such channel ID. (そのIDのボイスチャンネルは見つかりませんでした) : "+Config.STATUS_SYNC_CHANNEL);
+                return null;
+            }
+        } else {
             return null;
         }
     }

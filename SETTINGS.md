@@ -2,9 +2,15 @@
 ## デフォルト設定
 ```yml
 TOKEN: XXXXXXXXXXX.XXXXXX.XXXXXXXXXXX
-BOT_STATUS: "テスト"
+SERVER_ID: XXXXXXXXXXXXXXXXXX
+BOT_STATUS: "hogehoge"
 MESSAGE_SYNC_CHANNEL: XXXXXXXXXXX
 WHITELIST_CHANNEL: XXXXXXXXXXX
+SERVER_STATUS:
+  SYNC_BOOL: "false"
+  SYNC_CHANNEL: XXXXXXXXXXX
+  ENABLE_TEXT: "false"
+  DISABLE_TEXT: "false"
 SERVER_INFO:
   SERVER_NOTICE_BOOL : "true"
   STAT_MESS : ":green_circle: サーバーが起動しました"
@@ -33,9 +39,17 @@ BED:
 |key name|type|about|default|
 |----|----|----|----|
 |TOKEN|String|Discord Token|XXXXXXXXXXX.XXXXXX.XXXXXXXXXXX|
-|BOT_STATUS|String|Botのステータス|テスト|
+|BOT_STATUS|String|Botのステータス|hogehoge|
 |MESSAGE_SYNC_CHANNEL|String|メッセージを送信するチャンネル|XXXXXXXXXXX|
 |WHITELIST_CHANNEL|String|ホワイトリスト編集のチャンネル|XXXXXXXXXXX|
+
+#### SERVER_STATUS
+|key name|type|about|default|
+|----|----|----|----|
+|SYNC_BOOL|String(bool)|VCでのサーバーステータスチェックをできるようにするか|"false"|
+|SYNC_CHANNEL|String|ステータスを表示すVCのチャンネル|XXXXXXXXXXX|
+|ENABLE_TEXT|String|サーバー起動時のテキスト|"🟢サーバーが起動中"|
+|DISABLE_TEXT|String|サーバー停止時のテキスト|"🔴サーバーが停止中"|
 
 #### SERVER_INFO
 |key name|type|about|default|

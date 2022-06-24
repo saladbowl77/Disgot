@@ -13,6 +13,11 @@ public class Config {
     public static String MESSAGE_SYNC_CHANNEL;
     public static String WHITELIST_CHANNEL;
 
+    public static String STATUS_SYNC_BOOL;
+    public static String STATUS_SYNC_CHANNEL;
+    public static String STATUS_SYNC_ENABLE_TEXT;
+    public static String STATUS_SYNC_DISABLE_TEXT;
+
     public static String SI_SERVER_NOTICE_BOOL;
     public static String SI_STAT_MESS;
     public static String SI_CLOSE_MESS;
@@ -41,6 +46,11 @@ public class Config {
         BOT_STATUS = config.getString("BOT_STATUS");
         MESSAGE_SYNC_CHANNEL = config.getString("MESSAGE_SYNC_CHANNEL");
         WHITELIST_CHANNEL = config.getString("WHITELIST_CHANNEL");
+
+        STATUS_SYNC_BOOL = config.getString("SERVER_STATUS.SYNC_BOOL");
+        STATUS_SYNC_CHANNEL = config.getString("SERVER_STATUS.SYNC_CHANNEL");
+        STATUS_SYNC_ENABLE_TEXT = config.getString("SERVER_STATUS.ENABLE_TEXT");
+        STATUS_SYNC_DISABLE_TEXT = config.getString("SERVER_STATUS.DISABLE_TEXT");
 
         SI_SERVER_NOTICE_BOOL = config.getString("SERVER_INFO.SERVER_NOTICE_BOOL");
         SI_STAT_MESS = config.getString("SERVER_INFO.STAT_MESS");

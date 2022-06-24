@@ -14,8 +14,11 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerBedEnterEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.Material;
 
+import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
+
+import org.bukkit.Material;
 
 public class sEvent implements Listener {
     public static Disgot plugin;
@@ -35,6 +38,7 @@ public class sEvent implements Listener {
             String playerName = e.getPlayer().getDisplayName();
             MessageSync.sendMessage2disc(playerName + Config.UI_JOIN_MESS);
         }
+        //updateServerInfo();
     }
 
     @EventHandler
@@ -43,6 +47,14 @@ public class sEvent implements Listener {
             String playerName = e.getPlayer().getDisplayName();
             MessageSync.sendMessage2disc(playerName + Config.UI_LEAVE_MESS);
         }
+        /*
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                updateServerInfo();
+            }
+        }.runTaskLater(plugin, 20);
+         */
     }
 
     @EventHandler
@@ -83,6 +95,27 @@ public class sEvent implements Listener {
             }
         }
     }
+    /*
+    public void updateServerInfo(){
+        try {
+            Integer NOW_PLAYER_COUNT = Bukkit.getOnlinePlayers().toArray().length;
+            //チャンネルの概要変更
+            MessageSync
+                    .getTextChannel()
+                    .getManager()
+                    .setTopic(":green_circle: サーバー起動中 プレイヤー数:" + NOW_PLAYER_COUNT + "人")
+                    .queue();
+            //VCのチャンネル名変更
+            MessageSync
+                    .getTextChannel()
+                    .getManager()
+                    .setName("🟢起動中 プレイヤー数:" + NOW_PLAYER_COUNT + "人")
+                    .queue();
+        } catch (Exception ex) {
+            Bukkit.getLogger().warning("Cannot find such channel ID. (そのIDのチャンネルは見つかりませんでした) : "+Config.MESSAGE_SYNC_CHANNEL);
+        }
+    }
+     */
 
     public static String getPlayers(){
         Integer JOIN_PLAYERS = Bukkit.getOnlinePlayers().toArray().length;
