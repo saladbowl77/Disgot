@@ -1,24 +1,16 @@
 package work.saladbowl.disgot.spigot;
 
 import org.bukkit.Bukkit;
-import work.saladbowl.disgot.Disgot;
-import work.saladbowl.disgot.Config;
-import work.saladbowl.disgot.MessageSync;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.event.player.PlayerBedEnterEvent;
-import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.block.BlockBreakEvent;
-
-import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
-
-import org.bukkit.Material;
+import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.*;
+import work.saladbowl.disgot.Config;
+import work.saladbowl.disgot.Disgot;
+import work.saladbowl.disgot.MessageSync;
 
 public class sEvent implements Listener {
     public static Disgot plugin;
@@ -118,9 +110,9 @@ public class sEvent implements Listener {
      */
 
     public static String getPlayers(){
-        Integer JOIN_PLAYERS = Bukkit.getOnlinePlayers().toArray().length;
-        Integer MAX_PLAYERS = Bukkit.getMaxPlayers();
-        StringBuilder sb = new StringBuilder("");
+        int JOIN_PLAYERS = Bukkit.getOnlinePlayers().toArray().length;
+        int MAX_PLAYERS = Bukkit.getMaxPlayers();
+        StringBuilder sb = new StringBuilder();
         for (Player p : Bukkit.getOnlinePlayers()) {sb.append("- ").append(p.getName()).append("\n");}
         return "現在のプレイヤー数は" + JOIN_PLAYERS + "/" + MAX_PLAYERS + "\n" + sb;
     }

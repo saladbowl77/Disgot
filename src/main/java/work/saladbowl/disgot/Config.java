@@ -1,6 +1,5 @@
 package work.saladbowl.disgot;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.bukkit.configuration.file.FileConfiguration;
 
 public class Config {
