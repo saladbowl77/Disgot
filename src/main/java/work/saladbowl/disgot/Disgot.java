@@ -1,9 +1,8 @@
 package work.saladbowl.disgot;
 
-import org.bukkit.Bukkit;
+import org.bukkit.plugin.java.JavaPlugin;
 import work.saladbowl.disgot.discord.discmain;
 import work.saladbowl.disgot.spigot.sEvent;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import javax.security.auth.login.LoginException;
 

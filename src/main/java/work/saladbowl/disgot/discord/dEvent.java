@@ -45,7 +45,7 @@ public class dEvent extends ListenerAdapter {
     }
 
     @Override
-    public void onReady(ReadyEvent e) {
+    public void onReady(@NotNull ReadyEvent e) {
         MessageSync.sendMessage2disc(Config.SI_STAT_MESS);
         Bukkit.getLogger().info("Disgotが起動しました。");
     }

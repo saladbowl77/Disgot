@@ -2,18 +2,11 @@ package work.saladbowl.disgot;
 
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.entities.channel.concrete.VoiceChannel;
-import work.saladbowl.disgot.discord.discmain;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.HoverEvent;
-import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+import work.saladbowl.disgot.discord.discmain;
 
 public class MessageSync {
 
@@ -72,8 +65,7 @@ public class MessageSync {
     public static VoiceChannel getServerStatusChannel(){
         if (Config.STATUS_SYNC_BOOL.equals("true")){
             try{
-                VoiceChannel voiceChannel = discmain.jda.getVoiceChannelById(Config.STATUS_SYNC_CHANNEL);
-                return voiceChannel;
+                return discmain.jda.getVoiceChannelById(Config.STATUS_SYNC_CHANNEL);
             }
             catch (Exception e) {
                 Bukkit.getLogger().warning("Cannot find such channel ID. (そのIDのボイスチャンネルは見つかりませんでした) : "+Config.STATUS_SYNC_CHANNEL);
