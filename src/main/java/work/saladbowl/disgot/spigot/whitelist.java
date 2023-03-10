@@ -4,7 +4,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.entity.Player;
 
 import java.io.BufferedReader;
 import java.io.FileOutputStream;
@@ -69,13 +68,13 @@ public class whitelist {
     }
 
     public static String getUUID(String name) {
-        String uuid = "";
+        String uuid;
 
         try {
             JsonObject resJson;
 
             BufferedReader in = new BufferedReader(new InputStreamReader(new URL("https://api.mojang.com/users/profiles/minecraft/" + name).openStream()));
-            resJson = new JsonParser().parse(in).getAsJsonObject();
+            resJson = JsonParser.parseReader(in).getAsJsonObject();
 
             uuid = resJson.get("id")
                     .toString()
