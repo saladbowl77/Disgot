@@ -1,6 +1,6 @@
 package work.saladbowl.disgot.discord;
 
-import net.dv8tion.jda.api.events.ReadyEvent;
+import net.dv8tion.jda.api.events.session.ReadyEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -29,7 +29,7 @@ public class dEvent extends ListenerAdapter {
         }
         else if(e.getChannel().getId().equals(Config.WHITELIST_CHANNEL)){
             String message = e.getMessage().getContentDisplay();
-            e.getChannel().sendMessage(whitelist.addWhitelist(message)).reference(e.getMessage()).queue();
+            e.getChannel().sendMessage(whitelist.addWhitelist(message)).setMessageReference(e.getMessage()).queue();
         }
     }
 

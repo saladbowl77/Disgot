@@ -36,7 +36,7 @@ public class discmain{
                     .addCommands(playerList)
                     .queue();
 
-        }catch (LoginException | InterruptedException e){
+        }catch (InterruptedException e){
             e.printStackTrace();
         }
     }
