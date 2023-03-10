@@ -75,7 +75,7 @@ public class whitelist {
             JsonObject resJson;
 
             BufferedReader in = new BufferedReader(new InputStreamReader(new URL("https://api.mojang.com/users/profiles/minecraft/" + name).openStream()));
-            resJson = new JsonParser().parse(in).getAsJsonObject();
+            resJson = JsonParser.parseReader(in).getAsJsonObject();
 
             uuid = resJson.get("id")
                     .toString()

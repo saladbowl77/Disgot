@@ -1,7 +1,7 @@
 package work.saladbowl.disgot;
 
-import net.dv8tion.jda.api.entities.TextChannel;
-import net.dv8tion.jda.api.entities.VoiceChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.VoiceChannel;
 import work.saladbowl.disgot.discord.discmain;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
