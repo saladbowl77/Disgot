@@ -11,7 +11,7 @@ import work.saladbowl.disgot.discord.discmain;
 public class MessageSync {
 
     public static void SyncMessage2spi(String guild, String name, String message){
-        Bukkit.getLogger().info(guild + name + message);
+        Bukkit.getLogger().info("[Disgot] server:" + guild + " user:" + name + " message:" + message);
         if(!Config.MT_DISCORD_ONLY.equals(message.substring(0,1))){
             String sendMessage = Config.MT_D2M.replace("&{UserName}",name).replace("&{message}",message);
             Bukkit.broadcastMessage(sendMessage);
