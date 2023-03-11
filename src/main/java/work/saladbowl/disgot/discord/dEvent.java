@@ -6,6 +6,8 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import org.jetbrains.annotations.NotNull;
 
+import com.vdurmont.emoji.EmojiParser;
+
 import work.saladbowl.disgot.Config;
 import work.saladbowl.disgot.MessageSync;
 import work.saladbowl.disgot.spigot.sFnc.whitelist;
@@ -19,7 +21,7 @@ public class dEvent extends ListenerAdapter {
         if(e.getChannel().getId().equals(Config.MESSAGE_SYNC_CHANNEL)){
             String guild = e.getGuild().getName();
             String name = e.getAuthor().getName();
-            String message = e.getMessage().getContentDisplay();
+            String message = EmojiParser.parseToAliases(e.getMessage().getContentStripped());
             if (message.equals("")){
                 String imageUrl = e.getMessage().getAttachments().get(0).getUrl();
                 MessageSync.SyncMessage2spiUrl(guild,name,imageUrl,imageUrl);
