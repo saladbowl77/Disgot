@@ -17,7 +17,7 @@ public class discmain{
     public static void launch() throws LoginException {
         try {
             // Login 処理
-            JDABuilder builder = JDABuilder.createLight(Config.TOKEN, GatewayIntent.GUILD_MESSAGES, GatewayIntent.DIRECT_MESSAGES)
+            JDABuilder builder = JDABuilder.createLight(Config.TOKEN, GatewayIntent.GUILD_MESSAGES, GatewayIntent.MESSAGE_CONTENT, GatewayIntent.DIRECT_MESSAGES)
                     .addEventListeners(new dEvent())
                     .setActivity(Activity.playing(Config.BOT_STATUS));
             jda = builder.build();
