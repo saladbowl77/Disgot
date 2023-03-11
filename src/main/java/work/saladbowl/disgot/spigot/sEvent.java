@@ -108,12 +108,4 @@ public class sEvent implements Listener {
         }
     }
      */
-
-    public static String getPlayers(){
-        int JOIN_PLAYERS = Bukkit.getOnlinePlayers().toArray().length;
-        int MAX_PLAYERS = Bukkit.getMaxPlayers();
-        StringBuilder sb = new StringBuilder();
-        for (Player p : Bukkit.getOnlinePlayers()) {sb.append("- ").append(p.getName()).append("\n");}
-        return "現在のプレイヤー数は" + JOIN_PLAYERS + "/" + MAX_PLAYERS + "\n" + sb;
-    }
 }
