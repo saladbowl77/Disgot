@@ -44,7 +44,7 @@ public final class Disgot extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        if (Config.STATUS_SYNC_BOOL.equals("true")) {
+        if (Config.STATUS_SYNC_BOOL) {
             try {
             /*
             //チャンネルの概要変更
@@ -65,7 +65,7 @@ public final class Disgot extends JavaPlugin {
             }
         }
 
-        if (Config.SI_SERVER_NOTICE_BOOL.equals("true")) MessageSync.sendMessage2disc(Config.SI_STAT_MESS);
+        if (Config.SI_SERVER_NOTICE_BOOL) MessageSync.sendMessage2disc(Config.SI_CLOSE_MESS);
         discmain.jda.shutdown();
         getLogger().info("Goodbye!");
     }
