@@ -22,8 +22,8 @@ public final class Disgot extends JavaPlugin {
         } catch (LoginException e) {
             e.printStackTrace();
         }
-
-        try {
+        if (Config.STATUS_SYNC_BOOL == "true") {
+            try {
             /*
             //チャンネルの概要変更
             MessageSync
@@ -32,20 +32,22 @@ public final class Disgot extends JavaPlugin {
                     .setTopic(":green_circle: サーバー起動中 プレイヤー数:0人")
                     .queue();
              */
-            //VCのチャンネル名変更
-            MessageSync
-                    .getServerStatusChannel()
-                    .getManager()
-                    .setName(Config.STATUS_SYNC_ENABLE_TEXT)
-                    .queue();
-        } catch (NullPointerException e) {
-            e.printStackTrace();
+                //VCのチャンネル名変更
+                MessageSync
+                        .getServerStatusChannel()
+                        .getManager()
+                        .setName(Config.STATUS_SYNC_ENABLE_TEXT)
+                        .queue();
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     @Override
     public void onDisable() {
-        try {
+        if (Config.STATUS_SYNC_BOOL.equals("true")) {
+            try {
             /*
             //チャンネルの概要変更
             MessageSync
@@ -54,17 +56,18 @@ public final class Disgot extends JavaPlugin {
                     .setTopic(":red_circle: サーバー停止中")
                     .queue();
              */
-            //VCのチャンネル名変更
-            MessageSync
-                    .getServerStatusChannel()
-                    .getManager()
-                    .setName(Config.STATUS_SYNC_DISABLE_TEXT)
-                    .queue();
-        } catch (NullPointerException e) {
-            e.printStackTrace();
+                //VCのチャンネル名変更
+                MessageSync
+                        .getServerStatusChannel()
+                        .getManager()
+                        .setName(Config.STATUS_SYNC_DISABLE_TEXT)
+                        .queue();
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
         }
 
-        MessageSync.sendMessage2disc(Config.SI_CLOSE_MESS);
+        if (Config.SI_SERVER_NOTICE_BOOL.equals("true")) MessageSync.sendMessage2disc(Config.SI_STAT_MESS);
         discmain.jda.shutdown();
         getLogger().info("Goodbye!");
     }
