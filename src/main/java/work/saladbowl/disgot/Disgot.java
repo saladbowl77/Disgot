@@ -22,8 +22,7 @@ public final class Disgot extends JavaPlugin {
         } catch (LoginException e) {
             e.printStackTrace();
         }
-        if (Config.STATUS_SYNC_BOOL == "true") {
-            try {
+        try {
             /*
             //チャンネルの概要変更
             MessageSync
@@ -32,15 +31,14 @@ public final class Disgot extends JavaPlugin {
                     .setTopic(":green_circle: サーバー起動中 プレイヤー数:0人")
                     .queue();
              */
-                //VCのチャンネル名変更
-                MessageSync
-                        .getServerStatusChannel()
-                        .getManager()
-                        .setName(Config.STATUS_SYNC_ENABLE_TEXT)
-                        .queue();
-            } catch (NullPointerException e) {
-                e.printStackTrace();
-            }
+            //VCのチャンネル名変更
+            MessageSync
+                    .getServerStatusChannel()
+                    .getManager()
+                    .setName(Config.STATUS_SYNC_ENABLE_TEXT)
+                    .queue();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
         }
     }
 
