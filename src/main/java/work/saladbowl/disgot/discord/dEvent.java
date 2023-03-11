@@ -8,8 +8,8 @@ import org.jetbrains.annotations.NotNull;
 
 import work.saladbowl.disgot.Config;
 import work.saladbowl.disgot.MessageSync;
-import work.saladbowl.disgot.spigot.sEvent;
-import work.saladbowl.disgot.spigot.whitelist;
+import work.saladbowl.disgot.spigot.sFnc.whitelist;
+import work.saladbowl.disgot.discord.slashCommands.switchCommand;
 import org.bukkit.Bukkit;
 
 public class dEvent extends ListenerAdapter {
@@ -35,18 +35,12 @@ public class dEvent extends ListenerAdapter {
 
     @Override
     public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent e) {
-        if(e.getChannel().getId().equals(Config.MESSAGE_SYNC_CHANNEL)) {
-            if (e.getName().equals("playerlist")) {
-                // コマンド送信者に対して、その人にだけ見えるメッセージとして返信する。
-                String replyText = sEvent.getPlayers();
-                e.reply(replyText).setEphemeral(true).queue();
-            }
-        }
+        if(e.getChannel().getId().equals(Config.MESSAGE_SYNC_CHANNEL)) switchCommand.swich(e);
     }
 
     @Override
     public void onReady(@NotNull ReadyEvent e) {
-        MessageSync.sendMessage2disc(Config.SI_STAT_MESS);
+        if (Config.SI_SERVER_NOTICE_BOOL.equals("true")) MessageSync.sendMessage2disc(Config.SI_STAT_MESS);
         Bukkit.getLogger().info("Disgotが起動しました。");
     }
 }

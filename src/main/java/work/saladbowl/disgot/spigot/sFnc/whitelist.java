@@ -1,5 +1,6 @@
-package work.saladbowl.disgot.spigot;
+package work.saladbowl.disgot.spigot.sFnc;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.bukkit.Bukkit;
@@ -8,14 +9,13 @@ import org.bukkit.OfflinePlayer;
 import java.io.BufferedReader;
 import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.io.InputStreamReader;
-import java.net.URL;
 import java.util.UUID;
 
-public class whitelist {
+import work.saladbowl.disgot.api.mojang;
 
+public class whitelist {
     public static String addWhitelist(String name){
-        String uuid = getUUID(name);
+        String uuid = mojang.getUUID(name)[0];
         if(uuid.equals("error")) return "Can't get UUID of Player:"+name+". Please check your Player name again.\nプレイヤー:"+name+"のUUIDが見つかりませんでした。プレイヤー名を再度確認してください。";
 
         OfflinePlayer player = Bukkit.getOfflinePlayer(UUID.fromString(uuid));
@@ -67,24 +67,25 @@ public class whitelist {
         }
     }
 
-    public static String getUUID(String name) {
-        String uuid;
+    public static boolean whitelistSearch(String id){
+        String[] resGetUUID = mojang.getUUID(id);
+        String get_uuid = resGetUUID[0];
 
         try {
-            JsonObject resJson;
-
-            BufferedReader in = new BufferedReader(new InputStreamReader(new URL("https://api.mojang.com/users/profiles/minecraft/" + name).openStream()));
-            resJson = JsonParser.parseReader(in).getAsJsonObject();
-
-            uuid = resJson.get("id")
-                    .toString()
-                    .replaceAll("\"", "")
-                    .replaceAll("(\\w{8})(\\w{4})(\\w{4})(\\w{4})(\\w{12})", "$1-$2-$3-$4-$5");
-
-            in.close();
+            BufferedReader jsonFile = new BufferedReader(new FileReader("./whitelist.json"));
+            JsonArray jsonArr = new JsonParser().parse(jsonFile).getAsJsonArray();
+            for (int i = 0; i < jsonArr.size(); i++) {
+                JsonObject mcid_uuid_discord = jsonArr.get(i).getAsJsonObject();
+                String json_uuid = mcid_uuid_discord.get("uuid").toString().replaceAll("\"", "");
+                if (get_uuid.equals(json_uuid)) {
+                    jsonFile.close();
+                    return true;
+                }
+            }
+            jsonFile.close();
         } catch (Exception e) {
-            uuid = "error";
+            return false;
         }
-        return uuid;
+        return false;
     }
 }
