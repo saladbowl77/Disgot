@@ -18,8 +18,14 @@ SERVER_INFO:
   CLOSE_MESS : ":red_circle: サーバーが停止しました"
 USER_INFO:
   USER_NOTICE_BOOL : true
-  JOIN_MESS : "がゲームに参加しました!いらっしゃい!"
-  LEAVE_MESS : "がゲームを離れました。バイバイ"
+  JOIN_NOTICE:
+    TYPE: "embed"
+    MESSAGE: "&{UserName}がゲームに参加しました!いらっしゃい!"
+    COLOR: "#37ab58"
+  LEAVE_NOTICE:
+    TYPE: "embed"
+    MESSAGE : "&{UserName}がゲームを離れました。バイバイ"
+    COLOR: "#c44949"
 MESSAGE_TYPE:
   D2M : "<&{UserName}>&{message}"
   M2D : "<&{UserName}>&{message}"

@@ -23,9 +23,13 @@ public class Config {
     public static String SI_STAT_MESS;
     public static String SI_CLOSE_MESS;
 
-    public static Boolean UI_USER_NOTICE_BOOL;
-    public static String UI_JOIN_MESS;
-    public static String UI_LEAVE_MESS;
+    public static Boolean UI_NOTICE_BOOL;
+    public static String UI_JOIN_TYPE;
+    public static String UI_JOIN_MESSAGE;
+    public static String UI_JOIN_COLOR;
+    public static String UI_LEAVE_TYPE;
+    public static String UI_LEAVE_MESSAGE;
+    public static String UI_LEAVE_COLOR;
 
     public static String MT_D2M;
     public static String MT_M2D;
@@ -58,9 +62,13 @@ public class Config {
         SI_STAT_MESS = config.getString("SERVER_INFO.STAT_MESS");
         SI_CLOSE_MESS = config.getString("SERVER_INFO.CLOSE_MESS");
 
-        UI_USER_NOTICE_BOOL = config.getBoolean("USER_INFO.USER_NOTICE_BOOL");
-        UI_JOIN_MESS = config.getString("USER_INFO.JOIN_MESS");
-        UI_LEAVE_MESS = config.getString("USER_INFO.LEAVE_MESS");
+        UI_NOTICE_BOOL = config.getBoolean("USER_INFO.USER_NOTICE_BOOL");
+        UI_JOIN_TYPE = config.getString("USER_INFO.JOIN_NOTICE.TYPE");
+        UI_JOIN_MESSAGE = config.getString("USER_INFO.JOIN_NOTICE.MESSAGE");
+        UI_JOIN_COLOR = config.getString("USER_INFO.JOIN_NOTICE.COLOR");
+        UI_LEAVE_TYPE = config.getString("USER_INFO.LEAVE_NOTICE.TYPE");
+        UI_LEAVE_MESSAGE = config.getString("USER_INFO.LEAVE_NOTICE.MESSAGE");
+        UI_LEAVE_COLOR = config.getString("USER_INFO.LEAVE_NOTICE.COLOR");
 
         MT_D2M = config.getString("MESSAGE_TYPE.D2M");
         MT_M2D = config.getString("MESSAGE_TYPE.M2D");

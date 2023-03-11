@@ -1,5 +1,6 @@
 package work.saladbowl.disgot.spigot;
 
+import java.awt.Color;
 import java.util.Map;
 
 import org.bukkit.Bukkit;
@@ -9,6 +10,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.*;
+
+import net.dv8tion.jda.api.EmbedBuilder;
 
 import work.saladbowl.disgot.Config;
 import work.saladbowl.disgot.Disgot;
@@ -28,27 +31,47 @@ public class sEvent implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e){
-        if (Config.UI_USER_NOTICE_BOOL) {
+        if (Config.UI_NOTICE_BOOL) {
             String playerName = e.getPlayer().getDisplayName();
-            MessageSync.sendMessage2disc(playerName + Config.UI_JOIN_MESS);
+            String playerUUID = e.getPlayer().getUniqueId().toString();
+            String JoinMessage = Config.UI_JOIN_MESSAGE.replace("&{UserName}",playerName);
+            String PlayerIcon = "https://minotar.net/helm/" + playerUUID;
+            switch (Config.UI_JOIN_TYPE) {
+                case "text":
+                    MessageSync.sendMessage2disc(JoinMessage);
+                    break;
+                case "embed":
+                    EmbedBuilder eb = new EmbedBuilder();
+                    eb.setAuthor(JoinMessage, null, PlayerIcon);
+                    String ebColor = Config.UI_JOIN_COLOR;
+                    if (Config.UI_JOIN_COLOR.equals(null)) ebColor = "#37ab58";
+                    eb.setColor(Color.decode(ebColor));
+                    MessageSync.sendMessage2discEmbed(eb);
+            }
         }
-        //updateServerInfo();
     }
 
     @EventHandler
     public void onQuit(PlayerQuitEvent e){
-        if (Config.UI_USER_NOTICE_BOOL) {
+        if (Config.UI_NOTICE_BOOL) {
             String playerName = e.getPlayer().getDisplayName();
-            MessageSync.sendMessage2disc(playerName + Config.UI_LEAVE_MESS);
-        }
-        /*
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                updateServerInfo();
+            String playerUUID = e.getPlayer().getUniqueId().toString();
+            String LeaveMessage = Config.UI_LEAVE_MESSAGE.replace("&{UserName}",playerName);
+            String PlayerIcon = "https://minotar.net/helm/" + playerUUID;
+
+            switch (Config.UI_LEAVE_TYPE) {
+                case "text":
+                    MessageSync.sendMessage2disc(LeaveMessage);
+                    break;
+                case "embed":
+                    EmbedBuilder eb = new EmbedBuilder();
+                    eb.setAuthor(LeaveMessage, null, PlayerIcon);
+                    String ebColor = Config.UI_LEAVE_COLOR;
+                    if (Config.UI_LEAVE_COLOR.equals(null)) ebColor = "#c44949";
+                    eb.setColor(Color.decode(ebColor));
+                    MessageSync.sendMessage2discEmbed(eb);
             }
-        }.runTaskLater(plugin, 20);
-         */
+        }
     }
 
     @EventHandler
