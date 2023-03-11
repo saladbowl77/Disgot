@@ -19,15 +19,14 @@ public class MessageSync {
     }
 
     public static void SyncMessage2spiUrl(String guild, String name, String messageText, String messageLink){
-        TextComponent message_send = new TextComponent(messageText);
-        message_send.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, messageLink));
+        Bukkit.getLogger().info("[Disgot] server:" + guild + " user:" + name + " message:" + messageText);
+        TextComponent message_sendLink = new TextComponent(messageText);
+        message_sendLink.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, messageLink));
 
-        String sendUser = Config.MT_M2D.replace("&{UserName}",name).replace("&{message}","");
+        String sendUser = Config.MT_D2M.replace("&{UserName}",name).replace("&{message}","");
+        TextComponent message_sendUser = new TextComponent(sendUser);
 
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            player.sendMessage(sendUser);
-            player.spigot().sendMessage(message_send);
-        }
+        Bukkit.spigot().broadcast(message_sendUser, message_sendLink);
     }
 
 
