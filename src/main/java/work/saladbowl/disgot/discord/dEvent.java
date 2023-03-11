@@ -40,7 +40,7 @@ public class dEvent extends ListenerAdapter {
 
     @Override
     public void onReady(@NotNull ReadyEvent e) {
-        if (Config.SI_SERVER_NOTICE_BOOL.equals("true")) MessageSync.sendMessage2disc(Config.SI_STAT_MESS);
+        if (Config.SI_SERVER_NOTICE_BOOL) MessageSync.sendMessage2disc(Config.SI_STAT_MESS);
         Bukkit.getLogger().info("Disgotが起動しました。");
     }
 }

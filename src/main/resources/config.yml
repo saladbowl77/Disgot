@@ -8,16 +8,16 @@ BOT_STATUS: "hogehoge"
 MESSAGE_SYNC_CHANNEL: XXXXXXXXXXX
 WHITELIST_CHANNEL: XXXXXXXXXXX
 SERVER_STATUS:
-  SYNC_BOOL: "false"
+  SYNC_BOOL: false
   SYNC_CHANNEL: XXXXXXXXXXX
   ENABLE_TEXT: "🟢サーバーが起動中"
   DISABLE_TEXT: "🔴サーバーが停止中"
 SERVER_INFO:
-  SERVER_NOTICE_BOOL : "true"
+  SERVER_NOTICE_BOOL : true
   STAT_MESS : ":green_circle: サーバーが起動しました"
   CLOSE_MESS : ":red_circle: サーバーが停止しました"
 USER_INFO:
-  USER_NOTICE_BOOL : "true"
+  USER_NOTICE_BOOL : true
   JOIN_MESS : "がゲームに参加しました!いらっしゃい!"
   LEAVE_MESS : "がゲームを離れました。バイバイ"
 MESSAGE_TYPE:
@@ -26,11 +26,16 @@ MESSAGE_TYPE:
   DISCORD_ONLY : "¥"
   MINECRAFT_ONLY : "*"
 CMD:
-  CMD_NOTICE_BOOL : "true"
+  CMD_NOTICE_BOOL : true
   CMD_NOTICE_MESS : "がコマンドを利用した! : "
 ORE:
   GET_NOTICE:
-    SEND_MINECRAFT: "true"
-    SEND_DISCORD": "true"
+    SEND_MINECRAFT: true
+    SEND_DISCORD: true
+    NOTICE_LIST:
+      - name: "DIAMOND_ORE"
+        sendText: "&{UserName}がダイヤモンドを見つけた!!"
+      - name: "DEEPSLATE_DIAMOND_ORE"
+        sendText: "&{UserName}が深成岩のダイヤモンドを見つけた!!"
 BED:
-  SLEEP_NOTICE: "true"
+  SLEEP_NOTICE: true

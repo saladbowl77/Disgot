@@ -62,7 +62,7 @@ public class MessageSync {
     }
 
     public static VoiceChannel getServerStatusChannel(){
-        if (Config.STATUS_SYNC_BOOL.equals("true")){
+        if (Config.STATUS_SYNC_BOOL){
             try{
                 return discmain.jda.getVoiceChannelById(Config.STATUS_SYNC_CHANNEL);
             }

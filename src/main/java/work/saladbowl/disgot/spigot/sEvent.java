@@ -1,13 +1,15 @@
 package work.saladbowl.disgot.spigot;
 
+import java.util.Map;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.*;
+
 import work.saladbowl.disgot.Config;
 import work.saladbowl.disgot.Disgot;
 import work.saladbowl.disgot.MessageSync;
@@ -26,7 +28,7 @@ public class sEvent implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e){
-        if (Config.UI_USER_NOTICE_BOOL.equals("true")) {
+        if (Config.UI_USER_NOTICE_BOOL) {
             String playerName = e.getPlayer().getDisplayName();
             MessageSync.sendMessage2disc(playerName + Config.UI_JOIN_MESS);
         }
@@ -35,7 +37,7 @@ public class sEvent implements Listener {
 
     @EventHandler
     public void onQuit(PlayerQuitEvent e){
-        if (Config.UI_USER_NOTICE_BOOL.equals("true")) {
+        if (Config.UI_USER_NOTICE_BOOL) {
             String playerName = e.getPlayer().getDisplayName();
             MessageSync.sendMessage2disc(playerName + Config.UI_LEAVE_MESS);
         }
@@ -57,7 +59,7 @@ public class sEvent implements Listener {
 
     @EventHandler
     public void onPlayerChat(PlayerCommandPreprocessEvent e){
-        if (Config.CMD_NOTICE_BOOL.equals("true")){
+        if (Config.CMD_NOTICE_BOOL){
             String playerName = e.getPlayer().getDisplayName();
             String message = e.getMessage();
             MessageSync.sendMessage2disc(playerName + message);
@@ -66,14 +68,18 @@ public class sEvent implements Listener {
 
     @EventHandler
     public void onPlayerJoin(BlockBreakEvent e) {
-        if (Config.ORE_GET_NOTICE_MINECRAFT.equals("true") || Config.ORE_GET_NOTICE_DISCORD.equals("true")) {
+        if (Config.ORE_GET_NOTICE_MINECRAFT || Config.ORE_GET_NOTICE_DISCORD) {
             String playerName = e.getPlayer().getDisplayName();
-            if (e.getBlock().getType() == Material.DIAMOND_ORE || e.getBlock().getType() == Material.DEEPSLATE_DIAMOND_ORE) {
-                if (Config.ORE_GET_NOTICE_MINECRAFT.equals("true")) Bukkit.broadcastMessage(playerName + "がダイヤモンドを見つけた!");
-                if (Config.ORE_GET_NOTICE_DISCORD.equals("true")) MessageSync.sendMessage2disc(playerName + "がダイヤモンドを見つけた!");
-            } else if (e.getBlock().getType() == Material.EMERALD_ORE || e.getBlock().getType() == Material.DEEPSLATE_EMERALD_ORE) {
-                if (Config.ORE_GET_NOTICE_MINECRAFT.equals("true")) Bukkit.broadcastMessage(playerName + "がエメラルドを見つけた!");
-                if (Config.ORE_GET_NOTICE_DISCORD.equals("true")) MessageSync.sendMessage2disc(playerName + "がエメラルドを見つけた!");
+            for (Object obj:Config.ORE_GET_NOTICE_LIST){
+                Map<String, String> map = (Map<String, String>)obj;
+
+                Material block_material = Material.matchMaterial(map.get("name"));
+                if (e.getBlock().getType().equals(block_material)) {
+                    String sendTxt = map.get("sendText").replace("&{UserName}",playerName);
+                    if (Config.ORE_GET_NOTICE_MINECRAFT) Bukkit.broadcastMessage(sendTxt);
+                    if (Config.ORE_GET_NOTICE_DISCORD) MessageSync.sendMessage2disc(sendTxt);
+                    break;
+                }
             }
         }
     }
