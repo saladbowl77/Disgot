@@ -1,70 +1,183 @@
 package work.saladbowl.disgot.spigot.sFnc;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
-
 import java.io.BufferedReader;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.util.UUID;
 
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import work.saladbowl.disgot.Config;
 import work.saladbowl.disgot.api.mojang;
+import work.saladbowl.disgot.api.json_db;
 
 public class whitelist {
-    public static String addWhitelist(String name){
-        String uuid = mojang.getUUID(name)[0];
-        if(uuid.equals("error")) return "Can't get UUID of Player:"+name+". Please check your Player name again.\nプレイヤー:"+name+"のUUIDが見つかりませんでした。プレイヤー名を再度確認してください。";
+    public static String add(String mc_id, String dc_id){
+        String uuid = mojang.getUUID(mc_id)[0];
+        if(uuid.equals("error")) return "Can't get UUID of Player:"+mc_id+". Please check your Player name again.\nプレイヤー:"+mc_id+"のUUIDが見つかりませんでした。プレイヤー名を再度確認してください。";
 
         OfflinePlayer player = Bukkit.getOfflinePlayer(UUID.fromString(uuid));
 
-        if(player.isWhitelisted()){
-            return "That Player is already exist in white list!\nそのプレイヤーはすでにホワイトリストに存在しています。";
-        }
+        if(player.isWhitelisted()) return "That Player is already exist in white list!\nそのプレイヤーはすでにホワイトリストに存在しています。";
+        System.out.println(Config.WHITELIST_MULTIPLE.toString() + dbSearch(dc_id));
+        if(!Config.WHITELIST_MULTIPLE && dbSearch(dc_id)) return "すでにホワイトリストに追加されているユーザーです。複数のDiscordアカウントでの登録はできません。";
 
-        writeWhitelist(name,uuid);
+        writeWhitelist(mc_id,uuid);
+        writeUserDB(mc_id,uuid,dc_id);
 
         Bukkit.reloadWhitelist();
         return "Success! Player has added to white list!\n正常にホワイトリストへ追加しました。";
     }
 
+    public static Integer remove(String id){
+        String mc_uuid = id;
+        if (id.replace(" ", "").matches("<@[0-9]{18,19}>")){
+            mc_uuid = json_db.getDiscord2UUID(id);
+            if (mc_uuid.equals("NotFound.")) return 1;
+        } else if(id.length() <= 16) {
+            mc_uuid = mojang.getUUID(id)[0];
+        }
+        if(mc_uuid.equals("error")) return 0;
+
+        OfflinePlayer player = Bukkit.getOfflinePlayer(UUID.fromString(mc_uuid));
+
+        if(!player.isWhitelisted()) return 1;
+
+        removeWhitelist(mc_uuid);
+        removeMCDiscordDB(mc_uuid);
+
+        Bukkit.reloadWhitelist();
+        return 2;
+    }
+
+
     public static void writeWhitelist(String name, String uuid){
         try {
-            BufferedReader file = new BufferedReader(new FileReader("./whitelist.json"));
+            // whitelist.json 読み込み
+            BufferedReader jsonFile = new BufferedReader(new FileReader("./whitelist.json"));
+            JsonArray jsonArr = new JsonParser().parse(jsonFile).getAsJsonArray();
             StringBuffer inputBuffer = new StringBuffer();
-            String line;
 
-            while ((line = file.readLine()) != null) {
-                if(line.contains("[]")){
-                    line = "[" +
-                            "\n  {" +
-                            "\n    \"uuid\":\""+uuid+"\"," +
-                            "\n    \"name\":\""+name+"\"" +
-                            "\n  }" +
-                            "\n]";
-                }
-                else if(line.contains("]")){
-                    line = "  ," +
-                            "\n  {" +
-                            "\n    \"uuid\":\""+uuid+"\"," +
-                            "\n    \"name\":\""+name+"\"" +
-                            "\n  }" +
-                            "\n]";
-                }
-                inputBuffer.append(line);
-                inputBuffer.append('\n');
-            }
-            file.close();
+            // 該当ユーザーの配列をなくし、書き込み用の変数に代入
+            JsonObject addJson = new JsonParser().parse("{\"uuid\":\""+uuid+"\",\"name\":\""+name+"\"}").getAsJsonObject();
+            jsonArr.add(addJson);
+            inputBuffer.append(jsonArr);
+            jsonFile.close();
 
+            // ホワリスJSON アップデート
             FileOutputStream fileOut = new FileOutputStream("./whitelist.json");
             fileOut.write(inputBuffer.toString().getBytes());
             fileOut.close();
-
+            // ホワリス再読み込み
+            Bukkit.reloadWhitelist();
         } catch (Exception e) {
-            System.out.println("Can't read whitelist.json.");
+            System.out.println("Can't read whitelist.json." + e);
         }
+    }
+
+    public static void writeUserDB(String name, String uuid, String discordid){
+        try {
+            // whitelist.json 読み込み
+            BufferedReader jsonFile = new BufferedReader(new FileReader(Config.WhitelistDBPath));
+            JsonArray jsonArr = new JsonParser().parse(jsonFile).getAsJsonArray();
+            StringBuffer inputBuffer = new StringBuffer();
+
+            // 該当ユーザーの配列をなくし、書き込み用の変数に代入
+            JsonObject addJson = new JsonParser().parse("{\"uuid\":\""+uuid+"\",\"name\":\""+name+"\",\"discord\":"+discordid +"}").getAsJsonObject();
+            jsonArr.add(addJson);
+            inputBuffer.append(jsonArr);
+            jsonFile.close();
+
+            // ホワリスJSON アップデート
+            FileOutputStream fileOut = new FileOutputStream(Config.WhitelistDBPath);
+            fileOut.write(inputBuffer.toString().getBytes());
+            fileOut.close();
+            // ホワリス再読み込み
+            Bukkit.reloadWhitelist();
+        } catch (Exception e) {
+            Bukkit.getLogger().warning("Can't read mcid-discordid-db.json." + e);
+        }
+    }
+
+    public static int removeWhitelist(String delMinecraftUUID){
+        try {
+            // whitelist.json 読み込み
+            BufferedReader jsonFile = new BufferedReader(new FileReader("./whitelist.json"));
+            JsonArray jsonArr = new JsonParser().parse(jsonFile).getAsJsonArray();
+            StringBuffer inputBuffer = new StringBuffer();
+
+            for (int i = 0; i < jsonArr.size(); i++) {
+                JsonObject mcid_uuid_discord = jsonArr.get(i).getAsJsonObject();
+                String json_uuid = mcid_uuid_discord.get("uuid").toString().replaceAll("\"", "");
+                if (json_uuid.equals(delMinecraftUUID)) {
+                    String resUserData = mojang.getUserName(json_uuid);
+                    if (resUserData.equals("NotFound.") && resUserData.equals("Error. Can't read whitelist.json.")) {
+                        // error1
+                        jsonFile.close();
+                        return 1;
+                    } else {
+                        // 該当ユーザーの配列をなくし、書き込み用の変数に代入
+                        jsonArr.remove(i);
+                        inputBuffer.append(jsonArr);
+                        jsonFile.close();
+                        // ホワリスJSON アップデート
+                        FileOutputStream fileOut = new FileOutputStream("./whitelist.json");
+                        fileOut.write(inputBuffer.toString().getBytes());
+                        fileOut.close();
+                        // ホワリス再読み込み
+                        Bukkit.reloadWhitelist();
+                        return 2;
+                    }
+                }
+            }
+            jsonFile.close();
+        } catch (Exception e) {
+            return 3;
+        }
+        return 0;
+    }
+
+    public static int removeMCDiscordDB(String delMinecraftUUID){
+        try {
+            // whitelist.json 読み込み
+            BufferedReader jsonFile = new BufferedReader(new FileReader(Config.WhitelistDBPath));
+            JsonArray jsonArr = new JsonParser().parse(jsonFile).getAsJsonArray();
+            StringBuffer inputBuffer = new StringBuffer();
+
+            for (int i = 0; i < jsonArr.size(); i++) {
+                JsonObject mcid_uuid_discord = jsonArr.get(i).getAsJsonObject();
+                String json_uuid = mcid_uuid_discord.get("uuid").toString().replaceAll("\"", "");
+                if (json_uuid.equals(delMinecraftUUID)) {
+                    String resUserData = mojang.getUserName(json_uuid);
+                    if (resUserData.equals("NotFound.") && resUserData.equals("Error. Can't read mcid-discordid-db.json.")) {
+                        // error1
+                        jsonFile.close();
+                        return 1;
+                    } else {
+                        // 該当ユーザーの配列をなくし、書き込み用の変数に代入
+                        jsonArr.remove(i);
+                        inputBuffer.append(jsonArr);
+                        jsonFile.close();
+                        // ホワリスJSON アップデート
+                        FileOutputStream fileOut = new FileOutputStream(Config.WhitelistDBPath);
+                        fileOut.write(inputBuffer.toString().getBytes());
+                        fileOut.close();
+                        // ホワリス再読み込み
+                        Bukkit.reloadWhitelist();
+                        return 2;
+                    }
+                }
+            }
+            jsonFile.close();
+        } catch (Exception e) {
+            return 3;
+        }
+        return 0;
     }
 
     public static boolean whitelistSearch(String id){
@@ -78,6 +191,26 @@ public class whitelist {
                 JsonObject mcid_uuid_discord = jsonArr.get(i).getAsJsonObject();
                 String json_uuid = mcid_uuid_discord.get("uuid").toString().replaceAll("\"", "");
                 if (get_uuid.equals(json_uuid)) {
+                    jsonFile.close();
+                    return true;
+                }
+            }
+            jsonFile.close();
+        } catch (Exception e) {
+            return false;
+        }
+        return false;
+    }
+
+    public static boolean dbSearch(String input_discord_id){
+        try {
+            BufferedReader jsonFile = new BufferedReader(new FileReader(Config.WhitelistDBPath));
+            JsonArray jsonArr = new JsonParser().parse(jsonFile).getAsJsonArray();
+            for (int i = 0; i < jsonArr.size(); i++) {
+                JsonObject mcid_uuid_discord = jsonArr.get(i).getAsJsonObject();
+                String json_discord_id = mcid_uuid_discord.get("discord").toString();
+                System.out.println(input_discord_id + json_discord_id);
+                if (input_discord_id.equals(json_discord_id)) {
                     jsonFile.close();
                     return true;
                 }
