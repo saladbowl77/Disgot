@@ -14,6 +14,12 @@ public class Config {
     public static String MESSAGE_SYNC_CHANNEL;
     public static String WHITELIST_CHANNEL;
 
+    public static Boolean WHITELIST_MULTIPLE;
+    public static Boolean WHITELIST_JG_BOOL;
+    public static String WHITELIST_JG_TYPE;
+    public static String WHITELIST_JG_CHANNEL;
+    public static String WHITELIST_JG_ROLE;
+
     public static Boolean STATUS_SYNC_BOOL;
     public static String STATUS_SYNC_CHANNEL;
     public static String STATUS_SYNC_ENABLE_TEXT;
@@ -45,6 +51,8 @@ public class Config {
 
     public static Boolean BED_SLEEP_NOTICE;
 
+    public static String WhitelistDBPath = "./plugins/Disgot/mcid-discordid-db.json";
+
     public static void load() {
         FileConfiguration config = Disgot.plugin.getConfig();
         TOKEN = config.getString("TOKEN");
@@ -52,6 +60,12 @@ public class Config {
         BOT_STATUS = config.getString("BOT_STATUS");
         MESSAGE_SYNC_CHANNEL = config.getString("MESSAGE_SYNC_CHANNEL");
         WHITELIST_CHANNEL = config.getString("WHITELIST_CHANNEL");
+
+        WHITELIST_MULTIPLE = config.getBoolean("WHITELIST.MULTIPLE");
+        WHITELIST_JG_BOOL = config.getBoolean("WHITELIST.JOIN_GAME.BOOL");
+        WHITELIST_JG_TYPE = config.getString("WHITELIST.JOIN_GAME.TYPE");
+        WHITELIST_JG_CHANNEL = config.getString("WHITELIST.JOIN_GAME.CHANNEL");
+        WHITELIST_JG_ROLE = config.getString("WHITELIST.JOIN_GAME.ROLE");
 
         STATUS_SYNC_BOOL = config.getBoolean("SERVER_STATUS.SYNC_BOOL");
         STATUS_SYNC_CHANNEL = config.getString("SERVER_STATUS.SYNC_CHANNEL");
