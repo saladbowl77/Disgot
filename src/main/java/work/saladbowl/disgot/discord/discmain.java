@@ -18,6 +18,7 @@ public class discmain{
         try {
             // Login 処理
             JDABuilder builder = JDABuilder.createLight(Config.TOKEN, GatewayIntent.GUILD_MESSAGES, GatewayIntent.MESSAGE_CONTENT, GatewayIntent.DIRECT_MESSAGES)
+                    .enableIntents(GatewayIntent.GUILD_MEMBERS)
                     .addEventListeners(new dEvent())
                     .setActivity(Activity.playing(Config.BOT_STATUS));
             jda = builder.build();
@@ -36,11 +37,18 @@ public class discmain{
                             new OptionData(OptionType.STRING, "id", "マインクラフトのIDを記入してください", true)
                     );
 
-            // コマンドを指定したサーバーに登録
             guild.updateCommands()
                     .addCommands(playerList)
                     .addCommands(playerInfo)
                     .queue();
+
+            if (Config.WHITELIST_JG_BOOL && Config.WHITELIST_JG_TYPE.equals("CMD")) {
+                SlashCommandData joinGame = Commands.slash("joingame", "Minecraftサーバーに参加するためのコマンド")
+                        .addOptions(
+                                new OptionData(OptionType.STRING, "mcid", "マインクラフトのIDを記入してください", true)
+                        );
+                guild.updateCommands().addCommands(joinGame).queue();
+            }
 
         }catch (InterruptedException e){
             e.printStackTrace();
