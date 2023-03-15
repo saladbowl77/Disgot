@@ -49,7 +49,6 @@ public class discmain{
                         );
                 guild.updateCommands().addCommands(joinGame).queue();
             }
-            System.out.println("whitelist bool" + Config.WHITELIST_CMD_BOOL.toString());
             if (Config.WHITELIST_CMD_BOOL) {
                 // ホワイトリストに追加するコマンド
                 SlashCommandData addWhitelist = Commands.slash("whitelist", "ユーザーをホワイトリストに追加します")

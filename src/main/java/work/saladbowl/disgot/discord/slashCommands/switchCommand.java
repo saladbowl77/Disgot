@@ -21,7 +21,6 @@ public class switchCommand {
                 e.reply(reply).setEphemeral(false).queue();
                 break;
             case "whitelist":
-                System.out.println(Config.WHITELIST_CMD_CHANNEL);
                 if(Config.WHITELIST_CMD_CHANNEL.equals("XXXXXXXXXXX") || e.getChannel().getId().equals(Config.WHITELIST_CMD_CHANNEL)) {
                     switch (e.getSubcommandName()) {
                         case "add":

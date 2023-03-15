@@ -24,7 +24,6 @@ public class whitelist {
         OfflinePlayer player = Bukkit.getOfflinePlayer(UUID.fromString(uuid));
 
         if(player.isWhitelisted()) return "That Player is already exist in white list!\nそのプレイヤーはすでにホワイトリストに存在しています。";
-        System.out.println(Config.WHITELIST_MULTIPLE.toString() + dbSearch(dc_id));
         if(dc_id.equals("") && !Config.WHITELIST_MULTIPLE && dbSearch(dc_id)) return "すでにホワイトリストに追加されているユーザーです。複数のDiscordアカウントでの登録はできません。";
 
         writeWhitelist(mc_id,uuid);
@@ -76,7 +75,7 @@ public class whitelist {
             // ホワリス再読み込み
             Bukkit.reloadWhitelist();
         } catch (Exception e) {
-            System.out.println("Can't read whitelist.json." + e);
+            Bukkit.getLogger().warning("Can't read whitelist.json." + e);
         }
     }
 
@@ -209,7 +208,6 @@ public class whitelist {
             for (int i = 0; i < jsonArr.size(); i++) {
                 JsonObject mcid_uuid_discord = jsonArr.get(i).getAsJsonObject();
                 String json_discord_id = mcid_uuid_discord.get("discord").toString();
-                System.out.println(input_discord_id + json_discord_id);
                 if (input_discord_id.equals(json_discord_id)) {
                     jsonFile.close();
                     return true;
