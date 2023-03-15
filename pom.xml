@@ -6,7 +6,7 @@
 
     <groupId>work.saladbowl</groupId>
     <artifactId>Disgot</artifactId>
-    <version>1.4.0-beta4</version>
+    <version>1.4.0</version>
     <packaging>jar</packaging>
 
     <name>Disgot</name>
