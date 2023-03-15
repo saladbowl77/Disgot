@@ -18,7 +18,10 @@ public class Config {
     public static Boolean WHITELIST_JG_BOOL;
     public static String WHITELIST_JG_TYPE;
     public static String WHITELIST_JG_CHANNEL;
-    public static String WHITELIST_JG_ROLE;
+    public static Boolean WHITELIST_CMD_BOOL;
+    public static Boolean WHITELIST_CMD_SHOW_ALL;
+    public static Boolean WHITELIST_CMD_ALLOW_MC_ONLY;
+    public static String WHITELIST_CMD_CHANNEL;
 
     public static Boolean STATUS_SYNC_BOOL;
     public static String STATUS_SYNC_CHANNEL;
@@ -65,7 +68,10 @@ public class Config {
         WHITELIST_JG_BOOL = config.getBoolean("WHITELIST.JOIN_GAME.BOOL");
         WHITELIST_JG_TYPE = config.getString("WHITELIST.JOIN_GAME.TYPE");
         WHITELIST_JG_CHANNEL = config.getString("WHITELIST.JOIN_GAME.CHANNEL");
-        WHITELIST_JG_ROLE = config.getString("WHITELIST.JOIN_GAME.ROLE");
+        WHITELIST_CMD_BOOL = config.getBoolean("WHITELIST.CMD.BOOL");
+        WHITELIST_CMD_SHOW_ALL = config.getBoolean("WHITELIST.CMD.SHOW_ALL");
+        WHITELIST_CMD_ALLOW_MC_ONLY = config.getBoolean("WHITELIST.CMD.ALLOW_MC_ONLY");
+        WHITELIST_CMD_CHANNEL = config.getString("WHITELIST.CMD.CHANNEL");
 
         STATUS_SYNC_BOOL = config.getBoolean("SERVER_STATUS.SYNC_BOOL");
         STATUS_SYNC_CHANNEL = config.getString("SERVER_STATUS.SYNC_CHANNEL");

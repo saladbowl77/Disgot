@@ -20,6 +20,24 @@ public class switchCommand {
                 String reply = whitelist.add(e.getOption("mcid").getAsString(), e.getUser().getId());
                 e.reply(reply).setEphemeral(false).queue();
                 break;
+            case "whitelist":
+                System.out.println(Config.WHITELIST_CMD_CHANNEL);
+                if(Config.WHITELIST_CMD_CHANNEL.equals("XXXXXXXXXXX") || e.getChannel().getId().equals(Config.WHITELIST_CMD_CHANNEL)) {
+                    switch (e.getSubcommandName()) {
+                        case "add":
+                            String wa_mcid = e.getOption("mcid").getAsString();
+                            String wa_discordid = "";
+                            if (e.getOption("discordid") != null) wa_discordid = e.getOption("discordid").getAsString();
+                            whitelist_cmd.add(e, wa_mcid, wa_discordid);
+                            break;
+                        case "remove":
+                            String remove_id = e.getOption("id").getAsString();
+                            whitelist_cmd.remove(e, remove_id);
+                            break;
+                    }
+                } else {
+                    e.reply("現在のチャンネルまたはあなたのロールではホワイトリストに追加することはできません。").setEphemeral(false).queue();
+                }
         }
     }
 }

@@ -25,10 +25,10 @@ public class whitelist {
 
         if(player.isWhitelisted()) return "That Player is already exist in white list!\nそのプレイヤーはすでにホワイトリストに存在しています。";
         System.out.println(Config.WHITELIST_MULTIPLE.toString() + dbSearch(dc_id));
-        if(!Config.WHITELIST_MULTIPLE && dbSearch(dc_id)) return "すでにホワイトリストに追加されているユーザーです。複数のDiscordアカウントでの登録はできません。";
+        if(dc_id.equals("") && !Config.WHITELIST_MULTIPLE && dbSearch(dc_id)) return "すでにホワイトリストに追加されているユーザーです。複数のDiscordアカウントでの登録はできません。";
 
         writeWhitelist(mc_id,uuid);
-        writeUserDB(mc_id,uuid,dc_id);
+        if(!dc_id.equals("")) writeUserDB(mc_id,uuid,dc_id);
 
         Bukkit.reloadWhitelist();
         return "Success! Player has added to white list!\n正常にホワイトリストへ追加しました。";

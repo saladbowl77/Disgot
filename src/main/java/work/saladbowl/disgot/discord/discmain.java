@@ -49,7 +49,23 @@ public class discmain{
                         );
                 guild.updateCommands().addCommands(joinGame).queue();
             }
-
+            System.out.println("whitelist bool" + Config.WHITELIST_CMD_BOOL.toString());
+            if (Config.WHITELIST_CMD_BOOL) {
+                // ホワイトリストに追加するコマンド
+                SlashCommandData addWhitelist = Commands.slash("whitelist", "ユーザーをホワイトリストに追加します")
+                        .addSubcommands(
+                                new SubcommandData("add", "ホワイトリストに追加します。")
+                                        .addOptions(
+                                                new OptionData(OptionType.STRING, "mcid", "マイクラIDを記載するところです。", true),
+                                                new OptionData(OptionType.USER, "discordid", "ディスコードのIDを記載するところです。", Config.WHITELIST_CMD_ALLOW_MC_ONLY)
+                                        ),
+                                new SubcommandData("remove", "ホワイトリストから削除します。")
+                                        .addOptions(
+                                                new OptionData(OptionType.STRING, "id", "マインクラフトまたはDiscordのIDを記載するところです", true)
+                                        )
+                        );
+                guild.updateCommands().addCommands(addWhitelist).queue();
+            }
         }catch (InterruptedException e){
             e.printStackTrace();
         }

@@ -49,18 +49,14 @@ public class dEvent extends ListenerAdapter {
                 .setMessageReference(e.getMessage())
                 .queue();
         }
-        System.out.println(
-                Config.WHITELIST_JG_BOOL.toString() +
-                Config.WHITELIST_JG_TYPE.equals("TXT") +
-                e.getChannel().getId().equals(Config.WHITELIST_JG_CHANNEL)
-        );
     }
 
     @Override
     public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent e) {
         if(
                 e.getChannel().getId().equals(Config.MESSAGE_SYNC_CHANNEL) ||
-                e.getChannel().getId().equals(Config.WHITELIST_JG_CHANNEL)
+                e.getChannel().getId().equals(Config.WHITELIST_JG_CHANNEL) ||
+                e.getChannel().getId().equals(Config.WHITELIST_CMD_CHANNEL)
         ) switchCommand.swich(e);
         else e.reply("Minecraftとのチャットチャンネルまたは指定のコマンドチャンネルで実行してください。");
     }
