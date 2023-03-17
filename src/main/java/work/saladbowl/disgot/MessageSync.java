@@ -1,7 +1,6 @@
 package work.saladbowl.disgot;
 
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;

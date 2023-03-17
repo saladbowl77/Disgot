@@ -9,7 +9,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import work.saladbowl.disgot.Config;
 import work.saladbowl.disgot.Disgot;
 
 public class json_db {
