@@ -38,7 +38,7 @@ public class json_db {
 
 
     public static ArrayList<String> getDiscord2Mcid(String discordID){
-        ArrayList<String> mcidArr = new ArrayList();
+        ArrayList<String> mcidArr = new ArrayList<>();
         try {
             BufferedReader jsonFile = new BufferedReader(new FileReader(Disgot.plugin.jsonFile));
             JsonArray jsonArr = JsonParser.parseReader(jsonFile).getAsJsonArray();
