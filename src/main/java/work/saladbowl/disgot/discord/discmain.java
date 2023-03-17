@@ -1,14 +1,14 @@
 package work.saladbowl.disgot.discord;
 
+import javax.security.auth.login.LoginException;
+
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.interactions.commands.build.Commands;
-import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
+import net.dv8tion.jda.api.interactions.commands.build.*;
 import net.dv8tion.jda.api.requests.GatewayIntent;
-
-import javax.security.auth.login.LoginException;
 
 import work.saladbowl.disgot.Config;
 
@@ -18,6 +18,7 @@ public class discmain{
         try {
             // Login 処理
             JDABuilder builder = JDABuilder.createLight(Config.TOKEN, GatewayIntent.GUILD_MESSAGES, GatewayIntent.MESSAGE_CONTENT, GatewayIntent.DIRECT_MESSAGES)
+                    .enableIntents(GatewayIntent.GUILD_MEMBERS)
                     .addEventListeners(new dEvent())
                     .setActivity(Activity.playing(Config.BOT_STATUS));
             jda = builder.build();
@@ -29,13 +30,41 @@ public class discmain{
             Guild guild = jda.getGuildById(Config.SERVER_ID);
 
             // 登録するコマンドを作成
+            // プレイヤー数のコマンド
             SlashCommandData playerList = Commands.slash("playerlist", "サーバー内の人数を取得するコード");
+            SlashCommandData playerInfo = Commands.slash("playerinfo", "サーバーに入っているプレイヤーの情報を取得するコマンド")
+                    .addOptions(
+                            new OptionData(OptionType.STRING, "id", "マインクラフトのIDを記入してください", true)
+                    );
 
-            // コマンドを指定したサーバーに登録
             guild.updateCommands()
                     .addCommands(playerList)
+                    .addCommands(playerInfo)
                     .queue();
 
+            if (Config.WHITELIST_JG_BOOL && Config.WHITELIST_JG_TYPE.equals("CMD")) {
+                SlashCommandData joinGame = Commands.slash("joingame", "Minecraftサーバーに参加するためのコマンド")
+                        .addOptions(
+                                new OptionData(OptionType.STRING, "mcid", "マインクラフトのIDを記入してください", true)
+                        );
+                guild.updateCommands().addCommands(joinGame).queue();
+            }
+            if (Config.WHITELIST_CMD_BOOL) {
+                // ホワイトリストに追加するコマンド
+                SlashCommandData addWhitelist = Commands.slash("whitelist", "ユーザーをホワイトリストに追加します")
+                        .addSubcommands(
+                                new SubcommandData("add", "ホワイトリストに追加します。")
+                                        .addOptions(
+                                                new OptionData(OptionType.STRING, "mcid", "マイクラIDを記載するところです。", true),
+                                                new OptionData(OptionType.USER, "discordid", "ディスコードのIDを記載するところです。", Config.WHITELIST_CMD_ALLOW_MC_ONLY)
+                                        ),
+                                new SubcommandData("remove", "ホワイトリストから削除します。")
+                                        .addOptions(
+                                                new OptionData(OptionType.STRING, "id", "マインクラフトまたはDiscordのIDを記載するところです", true)
+                                        )
+                        );
+                guild.updateCommands().addCommands(addWhitelist).queue();
+            }
         }catch (InterruptedException e){
             e.printStackTrace();
         }

@@ -1,11 +1,15 @@
 package work.saladbowl.disgot;
 
-import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
-import net.dv8tion.jda.api.entities.channel.concrete.VoiceChannel;
-import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.VoiceChannel;
+
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.TextComponent;
+
 import work.saladbowl.disgot.discord.discmain;
 
 public class MessageSync {
@@ -39,9 +43,11 @@ public class MessageSync {
 
 
     public static void sendMessage2disc(String message){
-        if(getTextChannel()!=null){
-            getTextChannel().sendMessage(message).queue();
-        }
+        if(getTextChannel()!=null) getTextChannel().sendMessage(message).queue();
+    }
+
+    public static void sendMessage2discEmbed(EmbedBuilder embed){
+        if(getTextChannel()!=null)getTextChannel().sendMessageEmbeds(embed.build()).queue();
     }
 
 
@@ -62,7 +68,7 @@ public class MessageSync {
     }
 
     public static VoiceChannel getServerStatusChannel(){
-        if (Config.STATUS_SYNC_BOOL.equals("true")){
+        if (Config.STATUS_SYNC_BOOL){
             try{
                 return discmain.jda.getVoiceChannelById(Config.STATUS_SYNC_CHANNEL);
             }
