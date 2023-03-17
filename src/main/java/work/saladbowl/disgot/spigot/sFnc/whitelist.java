@@ -61,7 +61,7 @@ public class whitelist {
         try {
             // whitelist.json 読み込み
             BufferedReader jsonFile = new BufferedReader(new FileReader("./whitelist.json"));
-            JsonArray jsonArr = new JsonParser().parse(jsonFile).getAsJsonArray();
+            JsonArray jsonArr = JsonParser.parseReader(jsonFile).getAsJsonArray();
             StringBuffer inputBuffer = new StringBuffer();
 
             // 該当ユーザーの配列をなくし、書き込み用の変数に代入
@@ -85,7 +85,7 @@ public class whitelist {
         try {
             // whitelist.json 読み込み
             BufferedReader jsonFile = new BufferedReader(new FileReader(Disgot.plugin.jsonFile));
-            JsonArray jsonArr = new JsonParser().parse(jsonFile).getAsJsonArray();
+            JsonArray jsonArr = JsonParser.parseReader(jsonFile).getAsJsonArray();
             StringBuffer inputBuffer = new StringBuffer();
 
             // 該当ユーザーの配列をなくし、書き込み用の変数に代入
@@ -109,7 +109,7 @@ public class whitelist {
         try {
             // whitelist.json 読み込み
             BufferedReader jsonFile = new BufferedReader(new FileReader("./whitelist.json"));
-            JsonArray jsonArr = new JsonParser().parse(jsonFile).getAsJsonArray();
+            JsonArray jsonArr = JsonParser.parseReader(jsonFile).getAsJsonArray();
             StringBuffer inputBuffer = new StringBuffer();
 
             for (JsonElement jsonEle : jsonArr) {
@@ -147,7 +147,7 @@ public class whitelist {
         try {
             // whitelist.json 読み込み
             BufferedReader jsonFile = new BufferedReader(new FileReader(Disgot.plugin.jsonFile));
-            JsonArray jsonArr = new JsonParser().parse(jsonFile).getAsJsonArray();
+            JsonArray jsonArr = JsonParser.parseReader(jsonFile).getAsJsonArray();
             StringBuffer inputBuffer = new StringBuffer();
 
             for (JsonElement jsonEle : jsonArr) {
@@ -187,7 +187,7 @@ public class whitelist {
 
         try {
             BufferedReader jsonFile = new BufferedReader(new FileReader("./whitelist.json"));
-            JsonArray jsonArr = new JsonParser().parse(jsonFile).getAsJsonArray();
+            JsonArray jsonArr = JsonParser.parseReader(jsonFile).getAsJsonArray();
             for (int i = 0; i < jsonArr.size(); i++) {
                 JsonObject mcid_uuid_discord = jsonArr.get(i).getAsJsonObject();
                 String json_uuid = mcid_uuid_discord.get("uuid").toString().replaceAll("\"", "");
@@ -206,7 +206,7 @@ public class whitelist {
     public static boolean dbSearch(String input_discord_id){
         try {
             BufferedReader jsonFile = new BufferedReader(new FileReader(Disgot.plugin.jsonFile));
-            JsonArray jsonArr = new JsonParser().parse(jsonFile).getAsJsonArray();
+            JsonArray jsonArr = JsonParser.parseReader(jsonFile).getAsJsonArray();
             for (int i = 0; i < jsonArr.size(); i++) {
                 JsonObject mcid_uuid_discord = jsonArr.get(i).getAsJsonObject();
                 String json_discord_id = mcid_uuid_discord.get("discord").toString();

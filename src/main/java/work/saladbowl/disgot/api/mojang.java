@@ -17,7 +17,7 @@ public class mojang {
             String mc_name;
 
             BufferedReader in = new BufferedReader(new InputStreamReader(new URL("https://api.mojang.com/users/profiles/minecraft/" + name).openStream()));
-            resJson = new JsonParser().parse(in).getAsJsonObject();
+            resJson = JsonParser.parseReader(in).getAsJsonObject();
 
             uuid = resJson.get("id")
                     .toString()
@@ -41,7 +41,7 @@ public class mojang {
         String userName = "";
         try {
             BufferedReader resJson = new BufferedReader(new InputStreamReader(new URL("https://sessionserver.mojang.com/session/minecraft/profile/" + uuid).openStream()));
-            JsonObject jsonObj = new JsonParser().parse(resJson).getAsJsonObject();
+            JsonObject jsonObj = JsonParser.parseReader(resJson).getAsJsonObject();
             userName = jsonObj.get("name").toString().replaceAll("\"", "");
             resJson.close();
         } catch (Exception e) {

@@ -19,7 +19,7 @@ public class json_db {
         String get_uuid = resGetUUID[0];
         try {
             BufferedReader jsonFile = new BufferedReader(new FileReader(Disgot.plugin.jsonFile));
-            JsonArray jsonArr = new JsonParser().parse(jsonFile).getAsJsonArray();
+            JsonArray jsonArr = JsonParser.parseReader(jsonFile).getAsJsonArray();
             for (JsonElement jsonEle : jsonArr) {
                 JsonObject mcid_uuid_discord = jsonEle.getAsJsonObject();
                 String json_uuid = mcid_uuid_discord.get("uuid").toString().replaceAll("\"", "");
@@ -41,7 +41,7 @@ public class json_db {
         ArrayList<String> mcidArr = new ArrayList();
         try {
             BufferedReader jsonFile = new BufferedReader(new FileReader(Disgot.plugin.jsonFile));
-            JsonArray jsonArr = new JsonParser().parse(jsonFile).getAsJsonArray();
+            JsonArray jsonArr = JsonParser.parseReader(jsonFile).getAsJsonArray();
             for (JsonElement jsonEle : jsonArr) {
                 JsonObject mcid_uuid_discord = jsonEle.getAsJsonObject();
                 String json_uuid = mcid_uuid_discord.get("uuid").toString().replaceAll("\"", "");
@@ -62,7 +62,7 @@ public class json_db {
         String resMcid = "NotFound.";
         try {
             BufferedReader jsonFile = new BufferedReader(new FileReader(Disgot.plugin.jsonFile));
-            JsonArray jsonArr = new JsonParser().parse(jsonFile).getAsJsonArray();
+            JsonArray jsonArr = JsonParser.parseReader(jsonFile).getAsJsonArray();
             for (JsonElement jsonEle : jsonArr) {
                 JsonObject mcid_uuid_discord = jsonEle.getAsJsonObject();
                 String json_uuid = mcid_uuid_discord.get("uuid").toString().replaceAll("\"", "");
