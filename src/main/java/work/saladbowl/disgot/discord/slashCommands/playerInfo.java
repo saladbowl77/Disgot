@@ -27,10 +27,10 @@ public class playerInfo {
                 onlineType = "参加状況 : 🟢 オンライン";
 
                 String healthText = "";
-                Double healthDouble = (double) playerData.get("health") / 2;
-                Integer healthInt = healthDouble.intValue();
+                double healthDouble = (double) playerData.get("health") / 2;
+                int healthInt = (int) healthDouble;
                 for (int i = 0; i < healthInt; i++) healthText += "❤️";
-                if (healthDouble - healthInt.doubleValue() < 0.5) healthText += "💔️";
+                if (healthDouble - (double) healthInt < 0.5) healthText += "💔️";
                 else healthText += "❤️";
                 for (int i =0; i < 10 - healthInt; i++) healthText += "♡";
 

@@ -8,8 +8,8 @@ import org.bukkit.entity.Player;
 
 public class player {
     public static String getPlayers(){
-        Integer JOIN_PLAYERS = Bukkit.getOnlinePlayers().toArray().length;
-        Integer MAX_PLAYERS = Bukkit.getMaxPlayers();
+        int JOIN_PLAYERS = Bukkit.getOnlinePlayers().toArray().length;
+        int MAX_PLAYERS = Bukkit.getMaxPlayers();
         StringBuilder sb = new StringBuilder("");
 
         for (Player p : Bukkit.getOnlinePlayers()) {
