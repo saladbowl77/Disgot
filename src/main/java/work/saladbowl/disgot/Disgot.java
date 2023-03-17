@@ -26,7 +26,7 @@ public final class Disgot extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new sEvent(this),this);
         saveDefaultConfig();
         Config.load();
-        getLogger().info("Hello!");
+        //getLogger().info("Hello!");
 
         if (jsonFile.exists()) {
             getLogger().info("ユーザーDBファイルはすでに存在しています。");
