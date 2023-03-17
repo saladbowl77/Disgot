@@ -92,8 +92,8 @@ public class sEvent implements Listener {
     public void onPlayerJoin(BlockBreakEvent e) {
         if (Config.ORE_GET_NOTICE_MINECRAFT || Config.ORE_GET_NOTICE_DISCORD) {
             String playerName = e.getPlayer().getDisplayName();
-            for (Object obj:Config.ORE_GET_NOTICE_LIST){
-                Map<String, String> map = (Map<String, String>)obj;
+            for (Map<?, ?> obj : Config.ORE_GET_NOTICE_LIST){
+                Map<String, String> map = (Map<String, String>) obj;
 
                 Material block_material = Material.matchMaterial(map.get("name"));
                 if (e.getBlock().getType().equals(block_material)) {
