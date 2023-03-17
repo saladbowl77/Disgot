@@ -20,12 +20,10 @@ public class mojang {
             resJson = JsonParser.parseReader(in).getAsJsonObject();
 
             uuid = resJson.get("id")
-                    .toString()
-                    .replaceAll("\"", "")
+                    .getAsString()
                     .replaceAll("(\\w{8})(\\w{4})(\\w{4})(\\w{4})(\\w{12})", "$1-$2-$3-$4-$5");
             mc_name = resJson.get("name")
-                    .toString()
-                    .replaceAll("\"", "");
+                    .getAsString();
 
             resData[0] = uuid;
             resData[1] = mc_name;
@@ -42,7 +40,7 @@ public class mojang {
         try {
             BufferedReader resJson = new BufferedReader(new InputStreamReader(new URL("https://sessionserver.mojang.com/session/minecraft/profile/" + uuid).openStream()));
             JsonObject jsonObj = JsonParser.parseReader(resJson).getAsJsonObject();
-            userName = jsonObj.get("name").toString().replaceAll("\"", "");
+            userName = jsonObj.get("name").getAsString();
             resJson.close();
         } catch (Exception e) {
             userName = "error";

@@ -114,7 +114,7 @@ public class whitelist {
 
             for (JsonElement jsonEle : jsonArr) {
                 JsonObject mcid_uuid_discord = jsonEle.getAsJsonObject();
-                String json_uuid = mcid_uuid_discord.get("uuid").toString().replaceAll("\"", "");
+                String json_uuid = mcid_uuid_discord.get("uuid").getAsString();
                 if (json_uuid.equals(delMinecraftUUID)) {
                     String resUserData = mojang.getUserName(json_uuid);
                     if (resUserData.equals("NotFound.") && resUserData.equals("Error. Can't read whitelist.json.")) {
@@ -152,7 +152,7 @@ public class whitelist {
 
             for (JsonElement jsonEle : jsonArr) {
                 JsonObject mcid_uuid_discord = jsonEle.getAsJsonObject();
-                String json_uuid = mcid_uuid_discord.get("uuid").toString().replaceAll("\"", "");
+                String json_uuid = mcid_uuid_discord.get("uuid").getAsString();
                 if (json_uuid.equals(delMinecraftUUID)) {
                     String resUserData = mojang.getUserName(json_uuid);
                     if (resUserData.equals("NotFound.") && resUserData.equals("Error. Can't read mcid-discordid-db.json.")) {
@@ -188,9 +188,9 @@ public class whitelist {
         try {
             BufferedReader jsonFile = new BufferedReader(new FileReader("./whitelist.json"));
             JsonArray jsonArr = JsonParser.parseReader(jsonFile).getAsJsonArray();
-            for (int i = 0; i < jsonArr.size(); i++) {
-                JsonObject mcid_uuid_discord = jsonArr.get(i).getAsJsonObject();
-                String json_uuid = mcid_uuid_discord.get("uuid").toString().replaceAll("\"", "");
+            for (JsonElement jsonEle : jsonArr) {
+                JsonObject mcid_uuid_discord = jsonEle.getAsJsonObject();
+                String json_uuid = mcid_uuid_discord.get("uuid").getAsString();
                 if (get_uuid.equals(json_uuid)) {
                     jsonFile.close();
                     return true;
@@ -207,9 +207,9 @@ public class whitelist {
         try {
             BufferedReader jsonFile = new BufferedReader(new FileReader(Disgot.plugin.jsonFile));
             JsonArray jsonArr = JsonParser.parseReader(jsonFile).getAsJsonArray();
-            for (int i = 0; i < jsonArr.size(); i++) {
-                JsonObject mcid_uuid_discord = jsonArr.get(i).getAsJsonObject();
-                String json_discord_id = mcid_uuid_discord.get("discord").toString();
+            for (JsonElement jsonEle : jsonArr) {
+                JsonObject mcid_uuid_discord = jsonEle.getAsJsonObject();
+                String json_discord_id = mcid_uuid_discord.get("discord").getAsString();
                 if (input_discord_id.equals(json_discord_id)) {
                     jsonFile.close();
                     return true;
