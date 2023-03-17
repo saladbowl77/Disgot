@@ -65,7 +65,7 @@ public class whitelist {
             StringBuilder inputBuffer = new StringBuilder();
 
             // 該当ユーザーの配列をなくし、書き込み用の変数に代入
-            JsonObject addJson = new JsonParser().parse("{\"uuid\":\""+uuid+"\",\"name\":\""+name+"\"}").getAsJsonObject();
+            JsonObject addJson = JsonParser.parseString("{\"uuid\":\""+uuid+"\",\"name\":\""+name+"\"}").getAsJsonObject();
             jsonArr.add(addJson);
             inputBuffer.append(jsonArr);
             jsonFile.close();
@@ -89,7 +89,7 @@ public class whitelist {
             StringBuilder inputBuffer = new StringBuilder();
 
             // 該当ユーザーの配列をなくし、書き込み用の変数に代入
-            JsonObject addJson = new JsonParser().parse("{\"uuid\":\""+uuid+"\",\"name\":\""+name+"\",\"discord\":"+discordid +"}").getAsJsonObject();
+            JsonObject addJson = JsonParser.parseString("{\"uuid\":\""+uuid+"\",\"name\":\""+name+"\",\"discord\":"+discordid +"}").getAsJsonObject();
             jsonArr.add(addJson);
             inputBuffer.append(jsonArr);
             jsonFile.close();
