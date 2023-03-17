@@ -62,7 +62,7 @@ public class whitelist {
             // whitelist.json 読み込み
             BufferedReader jsonFile = new BufferedReader(new FileReader("./whitelist.json"));
             JsonArray jsonArr = JsonParser.parseReader(jsonFile).getAsJsonArray();
-            StringBuffer inputBuffer = new StringBuffer();
+            StringBuilder inputBuffer = new StringBuilder();
 
             // 該当ユーザーの配列をなくし、書き込み用の変数に代入
             JsonObject addJson = new JsonParser().parse("{\"uuid\":\""+uuid+"\",\"name\":\""+name+"\"}").getAsJsonObject();
@@ -86,7 +86,7 @@ public class whitelist {
             // whitelist.json 読み込み
             BufferedReader jsonFile = new BufferedReader(new FileReader(Disgot.plugin.jsonFile));
             JsonArray jsonArr = JsonParser.parseReader(jsonFile).getAsJsonArray();
-            StringBuffer inputBuffer = new StringBuffer();
+            StringBuilder inputBuffer = new StringBuilder();
 
             // 該当ユーザーの配列をなくし、書き込み用の変数に代入
             JsonObject addJson = new JsonParser().parse("{\"uuid\":\""+uuid+"\",\"name\":\""+name+"\",\"discord\":"+discordid +"}").getAsJsonObject();
@@ -110,7 +110,7 @@ public class whitelist {
             // whitelist.json 読み込み
             BufferedReader jsonFile = new BufferedReader(new FileReader("./whitelist.json"));
             JsonArray jsonArr = JsonParser.parseReader(jsonFile).getAsJsonArray();
-            StringBuffer inputBuffer = new StringBuffer();
+            StringBuilder inputBuffer = new StringBuilder();
 
             for (JsonElement jsonEle : jsonArr) {
                 JsonObject mcid_uuid_discord = jsonEle.getAsJsonObject();
@@ -148,7 +148,7 @@ public class whitelist {
             // whitelist.json 読み込み
             BufferedReader jsonFile = new BufferedReader(new FileReader(Disgot.plugin.jsonFile));
             JsonArray jsonArr = JsonParser.parseReader(jsonFile).getAsJsonArray();
-            StringBuffer inputBuffer = new StringBuffer();
+            StringBuilder inputBuffer = new StringBuilder();
 
             for (JsonElement jsonEle : jsonArr) {
                 JsonObject mcid_uuid_discord = jsonEle.getAsJsonObject();
