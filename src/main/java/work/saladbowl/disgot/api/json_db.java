@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.util.ArrayList;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -19,8 +20,8 @@ public class json_db {
         try {
             BufferedReader jsonFile = new BufferedReader(new FileReader(Disgot.plugin.jsonFile));
             JsonArray jsonArr = new JsonParser().parse(jsonFile).getAsJsonArray();
-            for (int i = 0; i < jsonArr.size(); i++) {
-                JsonObject mcid_uuid_discord = jsonArr.get(i).getAsJsonObject();
+            for (JsonElement jsonEle : jsonArr) {
+                JsonObject mcid_uuid_discord = jsonEle.getAsJsonObject();
                 String json_uuid = mcid_uuid_discord.get("uuid").toString().replaceAll("\"", "");
                 String json_discordid = mcid_uuid_discord.get("discord").toString().replaceAll("\"", "");
                 if (get_uuid.equals(json_uuid)) {
@@ -41,8 +42,8 @@ public class json_db {
         try {
             BufferedReader jsonFile = new BufferedReader(new FileReader(Disgot.plugin.jsonFile));
             JsonArray jsonArr = new JsonParser().parse(jsonFile).getAsJsonArray();
-            for (int i = 0; i < jsonArr.size(); i++) {
-                JsonObject mcid_uuid_discord = jsonArr.get(i).getAsJsonObject();
+            for (JsonElement jsonEle : jsonArr) {
+                JsonObject mcid_uuid_discord = jsonEle.getAsJsonObject();
                 String json_uuid = mcid_uuid_discord.get("uuid").toString().replaceAll("\"", "");
                 String json_discordid = mcid_uuid_discord.get("discord").toString().replaceAll("\"", "");
                 if (discordID.indexOf(json_discordid) != -1) {
@@ -62,8 +63,8 @@ public class json_db {
         try {
             BufferedReader jsonFile = new BufferedReader(new FileReader(Disgot.plugin.jsonFile));
             JsonArray jsonArr = new JsonParser().parse(jsonFile).getAsJsonArray();
-            for (int i = 0; i < jsonArr.size(); i++) {
-                JsonObject mcid_uuid_discord = jsonArr.get(i).getAsJsonObject();
+            for (JsonElement jsonEle : jsonArr) {
+                JsonObject mcid_uuid_discord = jsonEle.getAsJsonObject();
                 String json_uuid = mcid_uuid_discord.get("uuid").toString().replaceAll("\"", "");
                 String json_discordid = mcid_uuid_discord.get("discord").toString().replaceAll("\"", "");
 

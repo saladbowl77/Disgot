@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.util.UUID;
 
+import com.google.gson.JsonElement;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 
@@ -111,8 +112,8 @@ public class whitelist {
             JsonArray jsonArr = new JsonParser().parse(jsonFile).getAsJsonArray();
             StringBuffer inputBuffer = new StringBuffer();
 
-            for (int i = 0; i < jsonArr.size(); i++) {
-                JsonObject mcid_uuid_discord = jsonArr.get(i).getAsJsonObject();
+            for (JsonElement jsonEle : jsonArr) {
+                JsonObject mcid_uuid_discord = jsonEle.getAsJsonObject();
                 String json_uuid = mcid_uuid_discord.get("uuid").toString().replaceAll("\"", "");
                 if (json_uuid.equals(delMinecraftUUID)) {
                     String resUserData = mojang.getUserName(json_uuid);
@@ -122,7 +123,7 @@ public class whitelist {
                         return 1;
                     } else {
                         // 該当ユーザーの配列をなくし、書き込み用の変数に代入
-                        jsonArr.remove(i);
+                        jsonArr.remove(jsonEle);
                         inputBuffer.append(jsonArr);
                         jsonFile.close();
                         // ホワリスJSON アップデート
@@ -149,8 +150,8 @@ public class whitelist {
             JsonArray jsonArr = new JsonParser().parse(jsonFile).getAsJsonArray();
             StringBuffer inputBuffer = new StringBuffer();
 
-            for (int i = 0; i < jsonArr.size(); i++) {
-                JsonObject mcid_uuid_discord = jsonArr.get(i).getAsJsonObject();
+            for (JsonElement jsonEle : jsonArr) {
+                JsonObject mcid_uuid_discord = jsonEle.getAsJsonObject();
                 String json_uuid = mcid_uuid_discord.get("uuid").toString().replaceAll("\"", "");
                 if (json_uuid.equals(delMinecraftUUID)) {
                     String resUserData = mojang.getUserName(json_uuid);
@@ -160,7 +161,7 @@ public class whitelist {
                         return 1;
                     } else {
                         // 該当ユーザーの配列をなくし、書き込み用の変数に代入
-                        jsonArr.remove(i);
+                        jsonArr.remove(jsonEle);
                         inputBuffer.append(jsonArr);
                         jsonFile.close();
                         // ホワリスJSON アップデート
