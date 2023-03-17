@@ -76,7 +76,6 @@ public class sEvent implements Listener {
 
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent e){
-        e.getDeathMessage();
         MessageSync.sendMessage2disc(e.getDeathMessage());
     }
 
