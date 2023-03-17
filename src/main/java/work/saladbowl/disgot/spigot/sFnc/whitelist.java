@@ -13,6 +13,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import work.saladbowl.disgot.Config;
+import work.saladbowl.disgot.Disgot;
 import work.saladbowl.disgot.api.mojang;
 import work.saladbowl.disgot.api.json_db;
 
@@ -82,7 +83,7 @@ public class whitelist {
     public static void writeUserDB(String name, String uuid, String discordid){
         try {
             // whitelist.json 読み込み
-            BufferedReader jsonFile = new BufferedReader(new FileReader(Config.WhitelistDBPath));
+            BufferedReader jsonFile = new BufferedReader(new FileReader(Disgot.plugin.jsonFile));
             JsonArray jsonArr = new JsonParser().parse(jsonFile).getAsJsonArray();
             StringBuffer inputBuffer = new StringBuffer();
 
@@ -93,7 +94,7 @@ public class whitelist {
             jsonFile.close();
 
             // ホワリスJSON アップデート
-            FileOutputStream fileOut = new FileOutputStream(Config.WhitelistDBPath);
+            FileOutputStream fileOut = new FileOutputStream(Disgot.plugin.jsonFile);
             fileOut.write(inputBuffer.toString().getBytes());
             fileOut.close();
             // ホワリス再読み込み
@@ -144,7 +145,7 @@ public class whitelist {
     public static int removeMCDiscordDB(String delMinecraftUUID){
         try {
             // whitelist.json 読み込み
-            BufferedReader jsonFile = new BufferedReader(new FileReader(Config.WhitelistDBPath));
+            BufferedReader jsonFile = new BufferedReader(new FileReader(Disgot.plugin.jsonFile));
             JsonArray jsonArr = new JsonParser().parse(jsonFile).getAsJsonArray();
             StringBuffer inputBuffer = new StringBuffer();
 
@@ -163,7 +164,7 @@ public class whitelist {
                         inputBuffer.append(jsonArr);
                         jsonFile.close();
                         // ホワリスJSON アップデート
-                        FileOutputStream fileOut = new FileOutputStream(Config.WhitelistDBPath);
+                        FileOutputStream fileOut = new FileOutputStream(Disgot.plugin.jsonFile);
                         fileOut.write(inputBuffer.toString().getBytes());
                         fileOut.close();
                         // ホワリス再読み込み
@@ -203,7 +204,7 @@ public class whitelist {
 
     public static boolean dbSearch(String input_discord_id){
         try {
-            BufferedReader jsonFile = new BufferedReader(new FileReader(Config.WhitelistDBPath));
+            BufferedReader jsonFile = new BufferedReader(new FileReader(Disgot.plugin.jsonFile));
             JsonArray jsonArr = new JsonParser().parse(jsonFile).getAsJsonArray();
             for (int i = 0; i < jsonArr.size(); i++) {
                 JsonObject mcid_uuid_discord = jsonArr.get(i).getAsJsonObject();

@@ -9,6 +9,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import work.saladbowl.disgot.Config;
+import work.saladbowl.disgot.Disgot;
 
 public class json_db {
     public static String getMcid2Discord(String mcid){
@@ -16,7 +17,7 @@ public class json_db {
         String[] resGetUUID = mojang.getUUID(mcid);
         String get_uuid = resGetUUID[0];
         try {
-            BufferedReader jsonFile = new BufferedReader(new FileReader(Config.WhitelistDBPath));
+            BufferedReader jsonFile = new BufferedReader(new FileReader(Disgot.plugin.jsonFile));
             JsonArray jsonArr = new JsonParser().parse(jsonFile).getAsJsonArray();
             for (int i = 0; i < jsonArr.size(); i++) {
                 JsonObject mcid_uuid_discord = jsonArr.get(i).getAsJsonObject();
@@ -38,7 +39,7 @@ public class json_db {
     public static ArrayList<String> getDiscord2Mcid(String discordID){
         ArrayList<String> mcidArr = new ArrayList();
         try {
-            BufferedReader jsonFile = new BufferedReader(new FileReader(Config.WhitelistDBPath));
+            BufferedReader jsonFile = new BufferedReader(new FileReader(Disgot.plugin.jsonFile));
             JsonArray jsonArr = new JsonParser().parse(jsonFile).getAsJsonArray();
             for (int i = 0; i < jsonArr.size(); i++) {
                 JsonObject mcid_uuid_discord = jsonArr.get(i).getAsJsonObject();
@@ -59,7 +60,7 @@ public class json_db {
     public static String getDiscord2UUID(String discordID) {
         String resMcid = "NotFound.";
         try {
-            BufferedReader jsonFile = new BufferedReader(new FileReader(Config.WhitelistDBPath));
+            BufferedReader jsonFile = new BufferedReader(new FileReader(Disgot.plugin.jsonFile));
             JsonArray jsonArr = new JsonParser().parse(jsonFile).getAsJsonArray();
             for (int i = 0; i < jsonArr.size(); i++) {
                 JsonObject mcid_uuid_discord = jsonArr.get(i).getAsJsonObject();

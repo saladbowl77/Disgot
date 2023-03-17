@@ -54,7 +54,7 @@ public class Config {
 
     public static Boolean BED_SLEEP_NOTICE;
 
-    public static String WhitelistDBPath = "./plugins/Disgot/mcid-discordid-db.json";
+    public static String WhitelistDBPath = "mcid-discordid-db.json";
 
     public static void load() {
         FileConfiguration config = Disgot.plugin.getConfig();
