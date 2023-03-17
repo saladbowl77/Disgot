@@ -46,7 +46,7 @@ public class json_db {
                 JsonObject mcid_uuid_discord = jsonEle.getAsJsonObject();
                 String json_uuid = mcid_uuid_discord.get("uuid").toString().replaceAll("\"", "");
                 String json_discordid = mcid_uuid_discord.get("discord").toString().replaceAll("\"", "");
-                if (discordID.indexOf(json_discordid) != -1) {
+                if (discordID.contains(json_discordid)) {
                     String resUserData = mojang.getUserName(json_uuid);
                     mcidArr.add(resUserData);
                 }
@@ -68,7 +68,7 @@ public class json_db {
                 String json_uuid = mcid_uuid_discord.get("uuid").toString().replaceAll("\"", "");
                 String json_discordid = mcid_uuid_discord.get("discord").toString().replaceAll("\"", "");
 
-                if (discordID.indexOf(json_discordid) != -1) {
+                if (discordID.contains(json_discordid)) {
                     jsonFile.close();
                     return json_uuid;
                 }
