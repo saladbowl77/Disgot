@@ -1,6 +1,7 @@
 package work.saladbowl.disgot;
 
 import java.util.List;
+import java.util.Map;
 
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -50,11 +51,11 @@ public class Config {
 
     public static Boolean ORE_GET_NOTICE_MINECRAFT;
     public static Boolean ORE_GET_NOTICE_DISCORD;
-    public static List ORE_GET_NOTICE_LIST;
+    public static List<Map<?, ?>> ORE_GET_NOTICE_LIST;
 
     public static Boolean BED_SLEEP_NOTICE;
 
-    public static String WhitelistDBPath = "./plugins/Disgot/mcid-discordid-db.json";
+    public static String WhitelistDBPath = "mcid-discordid-db.json";
 
     public static void load() {
         FileConfiguration config = Disgot.plugin.getConfig();
@@ -100,7 +101,7 @@ public class Config {
 
         ORE_GET_NOTICE_MINECRAFT = config.getBoolean("ORE.GET_NOTICE.SEND_MINECRAFT");
         ORE_GET_NOTICE_DISCORD = config.getBoolean("ORE.GET_NOTICE.SEND_DISCORD");
-        ORE_GET_NOTICE_LIST = config.getList("ORE.GET_NOTICE.NOTICE_LIST");
+        ORE_GET_NOTICE_LIST = config.getMapList("ORE.GET_NOTICE.NOTICE_LIST");
 
         BED_SLEEP_NOTICE = config.getBoolean("BED.SLEEP_NOTICE");
     }

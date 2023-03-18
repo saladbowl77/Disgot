@@ -5,10 +5,11 @@ import java.io.FileReader;
 import java.util.ArrayList;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import work.saladbowl.disgot.Config;
+import work.saladbowl.disgot.Disgot;
 
 public class json_db {
     public static String getMcid2Discord(String mcid){
@@ -16,12 +17,12 @@ public class json_db {
         String[] resGetUUID = mojang.getUUID(mcid);
         String get_uuid = resGetUUID[0];
         try {
-            BufferedReader jsonFile = new BufferedReader(new FileReader(Config.WhitelistDBPath));
-            JsonArray jsonArr = new JsonParser().parse(jsonFile).getAsJsonArray();
-            for (int i = 0; i < jsonArr.size(); i++) {
-                JsonObject mcid_uuid_discord = jsonArr.get(i).getAsJsonObject();
-                String json_uuid = mcid_uuid_discord.get("uuid").toString().replaceAll("\"", "");
-                String json_discordid = mcid_uuid_discord.get("discord").toString().replaceAll("\"", "");
+            BufferedReader jsonFile = new BufferedReader(new FileReader(Disgot.plugin.jsonFile));
+            JsonArray jsonArr = JsonParser.parseReader(jsonFile).getAsJsonArray();
+            for (JsonElement jsonEle : jsonArr) {
+                JsonObject mcid_uuid_discord = jsonEle.getAsJsonObject();
+                String json_uuid = mcid_uuid_discord.get("uuid").getAsString();
+                String json_discordid = mcid_uuid_discord.get("discord").getAsString();
                 if (get_uuid.equals(json_uuid)) {
                     jsonFile.close();
                     return json_discordid;
@@ -36,15 +37,15 @@ public class json_db {
 
 
     public static ArrayList<String> getDiscord2Mcid(String discordID){
-        ArrayList<String> mcidArr = new ArrayList();
+        ArrayList<String> mcidArr = new ArrayList<>();
         try {
-            BufferedReader jsonFile = new BufferedReader(new FileReader(Config.WhitelistDBPath));
-            JsonArray jsonArr = new JsonParser().parse(jsonFile).getAsJsonArray();
-            for (int i = 0; i < jsonArr.size(); i++) {
-                JsonObject mcid_uuid_discord = jsonArr.get(i).getAsJsonObject();
-                String json_uuid = mcid_uuid_discord.get("uuid").toString().replaceAll("\"", "");
-                String json_discordid = mcid_uuid_discord.get("discord").toString().replaceAll("\"", "");
-                if (discordID.indexOf(json_discordid) != -1) {
+            BufferedReader jsonFile = new BufferedReader(new FileReader(Disgot.plugin.jsonFile));
+            JsonArray jsonArr = JsonParser.parseReader(jsonFile).getAsJsonArray();
+            for (JsonElement jsonEle : jsonArr) {
+                JsonObject mcid_uuid_discord = jsonEle.getAsJsonObject();
+                String json_uuid = mcid_uuid_discord.get("uuid").getAsString();
+                String json_discordid = mcid_uuid_discord.get("discord").getAsString();
+                if (discordID.contains(json_discordid)) {
                     String resUserData = mojang.getUserName(json_uuid);
                     mcidArr.add(resUserData);
                 }
@@ -59,14 +60,14 @@ public class json_db {
     public static String getDiscord2UUID(String discordID) {
         String resMcid = "NotFound.";
         try {
-            BufferedReader jsonFile = new BufferedReader(new FileReader(Config.WhitelistDBPath));
-            JsonArray jsonArr = new JsonParser().parse(jsonFile).getAsJsonArray();
-            for (int i = 0; i < jsonArr.size(); i++) {
-                JsonObject mcid_uuid_discord = jsonArr.get(i).getAsJsonObject();
-                String json_uuid = mcid_uuid_discord.get("uuid").toString().replaceAll("\"", "");
-                String json_discordid = mcid_uuid_discord.get("discord").toString().replaceAll("\"", "");
+            BufferedReader jsonFile = new BufferedReader(new FileReader(Disgot.plugin.jsonFile));
+            JsonArray jsonArr = JsonParser.parseReader(jsonFile).getAsJsonArray();
+            for (JsonElement jsonEle : jsonArr) {
+                JsonObject mcid_uuid_discord = jsonEle.getAsJsonObject();
+                String json_uuid = mcid_uuid_discord.get("uuid").getAsString();
+                String json_discordid = mcid_uuid_discord.get("discord").getAsString();
 
-                if (discordID.indexOf(json_discordid) != -1) {
+                if (discordID.contains(json_discordid)) {
                     jsonFile.close();
                     return json_uuid;
                 }

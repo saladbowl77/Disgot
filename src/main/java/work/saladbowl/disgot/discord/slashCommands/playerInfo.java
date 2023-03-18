@@ -26,13 +26,13 @@ public class playerInfo {
             if (playerData != null) {
                 onlineType = "参加状況 : 🟢 オンライン";
 
-                String healthText = "";
-                Double healthDouble = (double) playerData.get("health") / 2;
-                Integer healthInt = healthDouble.intValue();
-                for (int i = 0; i < healthInt; i++) healthText += "❤️";
-                if (healthDouble - healthInt.doubleValue() < 0.5) healthText += "💔️";
-                else healthText += "❤️";
-                for (int i =0; i < 10 - healthInt; i++) healthText += "♡";
+                StringBuilder healthText = new StringBuilder();
+                double healthDouble = (double) playerData.get("health") / 2;
+                int healthInt = (int) healthDouble;
+                for (int i = 0; i < healthInt; i++) healthText.append("❤️");
+                if (healthDouble - (double) healthInt < 0.5) healthText.append("💔️");
+                else healthText.append("❤️");
+                for (int i =0; i < 10 - healthInt; i++) healthText.append("♡");
 
                 Date first_day_date = new Date();
                 first_day_date.setTime((long) playerData.get("first"));
@@ -47,7 +47,7 @@ public class playerInfo {
                     .addField("座標X",    String.valueOf(playerData.get("location_X")), true)
                     .addField("座標Y",  String.valueOf(playerData.get("location_Y")), true)
                     .addField("座標Z",  String.valueOf(playerData.get("location_Z")), true)
-                    .addField("体力",   healthText, true)
+                    .addField("体力", healthText.toString(), true)
                     .addField("食糧",   String.valueOf(playerData.get("food")), true)
                     .addField("レベル", playerData.get("level") + "次のレベルまで" + playerData.get("exp_to_level"), true)
                     .addField("Ping",  String.valueOf(playerData.get("ping")), false)

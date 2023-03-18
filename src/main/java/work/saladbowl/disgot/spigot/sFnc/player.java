@@ -8,9 +8,9 @@ import org.bukkit.entity.Player;
 
 public class player {
     public static String getPlayers(){
-        Integer JOIN_PLAYERS = Bukkit.getOnlinePlayers().toArray().length;
-        Integer MAX_PLAYERS = Bukkit.getMaxPlayers();
-        StringBuilder sb = new StringBuilder("");
+        int JOIN_PLAYERS = Bukkit.getOnlinePlayers().toArray().length;
+        int MAX_PLAYERS = Bukkit.getMaxPlayers();
+        StringBuilder sb = new StringBuilder();
 
         for (Player p : Bukkit.getOnlinePlayers()) {
             sb.append("- ").append(p.getName()).append("\n");
@@ -24,7 +24,7 @@ public class player {
                     player.getDisplayName().equals(playerName)
                             || player.getUniqueId().toString().equals(playerName)
             ) {
-                Map<String, Object> locations = new HashMap<String, Object>();
+                Map<String, Object> locations = new HashMap<>();
 
                 locations.put("player_name",  player.getDisplayName());
                 locations.put("location_X",   player.getLocation().getX());

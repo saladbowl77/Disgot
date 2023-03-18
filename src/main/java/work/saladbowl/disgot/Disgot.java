@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import javax.security.auth.login.LoginException;
@@ -18,7 +17,8 @@ import work.saladbowl.disgot.spigot.sEvent;
 
 public final class Disgot extends JavaPlugin {
 
-    public static Disgot plugin = null;
+    public static Disgot plugin;
+    public File jsonFile = new File(getDataFolder(), Config.WhitelistDBPath);
 
     @Override
     public void onEnable() {
@@ -26,13 +26,12 @@ public final class Disgot extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new sEvent(this),this);
         saveDefaultConfig();
         Config.load();
-        getLogger().info("Hello!");
+        //getLogger().info("Hello!");
 
-        File jsonFile = new File(Config.WhitelistDBPath);
         if (jsonFile.exists()) {
             getLogger().info("ユーザーDBファイルはすでに存在しています。");
         } else {
-            Path jsonFilePath = Paths.get(Config.WhitelistDBPath);
+            Path jsonFilePath = jsonFile.toPath();
             try{
                 Files.createFile(jsonFilePath);
                 ArrayList<String> arr = new ArrayList<>();

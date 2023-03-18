@@ -58,7 +58,7 @@ public class dEvent extends ListenerAdapter {
                 e.getChannel().getId().equals(Config.WHITELIST_JG_CHANNEL) ||
                 e.getChannel().getId().equals(Config.WHITELIST_CMD_CHANNEL)
         ) switchCommand.swich(e);
-        else e.reply("Minecraftとのチャットチャンネルまたは指定のコマンドチャンネルで実行してください。");
+        else e.reply("Minecraftとのチャットチャンネルまたは指定のコマンドチャンネルで実行してください。").queue();
     }
     @Override
     public void onGuildMemberRemove(GuildMemberRemoveEvent e) {
