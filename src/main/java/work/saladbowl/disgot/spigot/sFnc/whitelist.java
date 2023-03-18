@@ -29,6 +29,8 @@ public class whitelist {
         if(dc_id.equals("") && !Config.WHITELIST_MULTIPLE && dbSearch(dc_id)) return "すでにホワイトリストに追加されているユーザーです。複数のDiscordアカウントでの登録はできません。";
 
         writeWhitelist(mc_id,uuid);
+        //player.setWhitelisted(true);
+        //Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "whitelist add " + mc_id);
         if(!dc_id.equals("")) writeUserDB(mc_id,uuid,dc_id);
 
         Bukkit.reloadWhitelist();
@@ -49,7 +51,9 @@ public class whitelist {
 
         if(!player.isWhitelisted()) return 1;
 
-        removeWhitelist(mc_uuid);
+        //removeWhitelist(mc_uuid);
+        player.setWhitelisted(false);
+        //Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "whitelist remove " + mc_id);
         removeMCDiscordDB(mc_uuid);
 
         Bukkit.reloadWhitelist();
@@ -105,6 +109,7 @@ public class whitelist {
         }
     }
 
+    /*
     public static int removeWhitelist(String delMinecraftUUID){
         try {
             // whitelist.json 読み込み
@@ -142,6 +147,7 @@ public class whitelist {
         }
         return 0;
     }
+    */
 
     public static int removeMCDiscordDB(String delMinecraftUUID){
         try {
@@ -185,6 +191,14 @@ public class whitelist {
         String[] resGetUUID = mojang.getUUID(id);
         String get_uuid = resGetUUID[0];
 
+        for (OfflinePlayer player : Bukkit.getWhitelistedPlayers()) {
+            if (player.getUniqueId().toString().equals(get_uuid)) {
+                return true;
+            }
+        }
+        return false;
+
+        /*
         try {
             BufferedReader jsonFile = new BufferedReader(new FileReader("./whitelist.json"));
             JsonArray jsonArr = JsonParser.parseReader(jsonFile).getAsJsonArray();
@@ -201,6 +215,7 @@ public class whitelist {
             return false;
         }
         return false;
+        */
     }
 
     public static boolean dbSearch(String input_discord_id){
