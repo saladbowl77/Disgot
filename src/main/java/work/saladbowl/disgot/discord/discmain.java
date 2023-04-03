@@ -10,7 +10,11 @@ import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.*;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 
+import net.dv8tion.jda.api.requests.restaction.CommandListUpdateAction;
 import work.saladbowl.disgot.Config;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class discmain{
     public static JDA jda;
@@ -29,6 +33,8 @@ public class discmain{
             // 参加しているサーバーを ID から取得
             Guild guild = jda.getGuildById(Config.SERVER_ID);
 
+            List<SlashCommandData> commands = new ArrayList<>();
+
             // 登録するコマンドを作成
             // プレイヤー数のコマンド
             SlashCommandData playerList = Commands.slash("playerlist", "サーバー内の人数を取得するコード");
@@ -36,18 +42,15 @@ public class discmain{
                     .addOptions(
                             new OptionData(OptionType.STRING, "id", "マインクラフトのIDを記入してください", true)
                     );
-
-            guild.updateCommands()
-                    .addCommands(playerList)
-                    .addCommands(playerInfo)
-                    .queue();
+            commands.add(playerList);
+            commands.add(playerInfo);
 
             if (Config.WHITELIST_JG_BOOL && Config.WHITELIST_JG_TYPE.equals("CMD")) {
                 SlashCommandData joinGame = Commands.slash("joingame", "Minecraftサーバーに参加するためのコマンド")
                         .addOptions(
                                 new OptionData(OptionType.STRING, "mcid", "マインクラフトのIDを記入してください", true)
                         );
-                guild.updateCommands().addCommands(joinGame).queue();
+                commands.add(joinGame);
             }
             if (Config.WHITELIST_CMD_BOOL) {
                 // ホワイトリストに追加するコマンド
@@ -63,8 +66,9 @@ public class discmain{
                                                 new OptionData(OptionType.STRING, "id", "マインクラフトまたはDiscordのIDを記載するところです", true)
                                         )
                         );
-                guild.updateCommands().addCommands(addWhitelist).queue();
+                commands.add(addWhitelist);
             }
+            guild.updateCommands().addCommands(commands).queue();
         }catch (InterruptedException e){
             e.printStackTrace();
         }
