@@ -13,7 +13,6 @@ public class Config {
     public static String SERVER_ID;
     public static String BOT_STATUS;
     public static String MESSAGE_SYNC_CHANNEL;
-    public static String WHITELIST_CHANNEL;
 
     public static Boolean WHITELIST_MULTIPLE;
     public static Boolean WHITELIST_JG_BOOL;
@@ -63,7 +62,6 @@ public class Config {
         SERVER_ID = config.getString("SERVER_ID");
         BOT_STATUS = config.getString("BOT_STATUS");
         MESSAGE_SYNC_CHANNEL = config.getString("MESSAGE_SYNC_CHANNEL");
-        WHITELIST_CHANNEL = config.getString("WHITELIST_CHANNEL");
 
         WHITELIST_MULTIPLE = config.getBoolean("WHITELIST.MULTIPLE");
         WHITELIST_JG_BOOL = config.getBoolean("WHITELIST.JOIN_GAME.BOOL");

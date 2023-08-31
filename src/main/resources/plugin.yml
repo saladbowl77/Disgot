@@ -3,6 +3,6 @@ version: '${project.version}'
 main: work.saladbowl.disgot.Disgot
 api-version: 1.16
 load: STARTUP
-authors: [ saladbowl, Shima ]
+authors: [ saladbowl, Ephemeral, Shima ]
 description: Disgot remake by saladbowl
 website: saladbowl.work

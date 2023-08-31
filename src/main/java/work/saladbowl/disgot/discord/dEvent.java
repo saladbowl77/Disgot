@@ -41,7 +41,7 @@ public class dEvent extends ListenerAdapter {
             }
         } else if(
                 Config.WHITELIST_JG_BOOL &&
-                Config.WHITELIST_JG_TYPE.equals("TXT") &&
+                Config.WHITELIST_JG_TYPE.equals("TXT")&&
                 e.getChannel().getId().equals(Config.WHITELIST_JG_CHANNEL)
         ){
             e.getChannel()
