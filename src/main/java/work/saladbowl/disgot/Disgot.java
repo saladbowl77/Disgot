@@ -57,6 +57,7 @@ public final class Disgot extends JavaPlugin {
         }
 
         discmain.launch();
+        MessageSync.initWebhook();
         try {
             /*
             //チャンネルの概要変更
