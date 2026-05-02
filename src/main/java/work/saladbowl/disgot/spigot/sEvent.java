@@ -23,13 +23,6 @@ public class sEvent implements Listener {
     public sEvent(Disgot instance) { plugin = instance; }
 
     @EventHandler
-    public void onPlayerChat(AsyncPlayerChatEvent e){
-        String playerName = e.getPlayer().getDisplayName();
-        String message = e.getMessage();
-        MessageSync.SyncMessage2disc(playerName,message);
-    }
-
-    @EventHandler
     public void onJoin(PlayerJoinEvent e){
         if (Config.UI_NOTICE_BOOL) {
             String playerName = e.getPlayer().getDisplayName();
@@ -44,7 +37,7 @@ public class sEvent implements Listener {
                     EmbedBuilder eb = new EmbedBuilder();
                     eb.setAuthor(JoinMessage, null, PlayerIcon);
                     String ebColor = Config.UI_JOIN_COLOR;
-                    if (Config.UI_JOIN_COLOR.equals(null)) ebColor = "#37ab58";
+                    if (Config.UI_JOIN_COLOR == null) ebColor = "#37ab58";
                     eb.setColor(Color.decode(ebColor));
                     MessageSync.sendMessage2discEmbed(eb);
             }
@@ -67,7 +60,7 @@ public class sEvent implements Listener {
                     EmbedBuilder eb = new EmbedBuilder();
                     eb.setAuthor(LeaveMessage, null, PlayerIcon);
                     String ebColor = Config.UI_LEAVE_COLOR;
-                    if (Config.UI_LEAVE_COLOR.equals(null)) ebColor = "#c44949";
+                    if (Config.UI_LEAVE_COLOR == null) ebColor = "#c44949";
                     eb.setColor(Color.decode(ebColor));
                     MessageSync.sendMessage2discEmbed(eb);
             }
@@ -76,7 +69,8 @@ public class sEvent implements Listener {
 
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent e){
-        MessageSync.sendMessage2disc(e.getDeathMessage());
+        String msg = e.getDeathMessage();
+        if (msg != null) MessageSync.sendMessage2disc(msg);
     }
 
     @EventHandler
@@ -108,7 +102,7 @@ public class sEvent implements Listener {
 
     @EventHandler
     public void getBedEnterResult(PlayerBedEnterEvent e){
-        if(Config.BED_SLEEP_NOTICE.equals("true")) {
+        if(Config.BED_SLEEP_NOTICE) {
             if (e.getBedEnterResult() == PlayerBedEnterEvent.BedEnterResult.OK) {
                 String playerName = e.getPlayer().getDisplayName();
                 Bukkit.broadcastMessage(playerName + "は寝ようとしている...");
