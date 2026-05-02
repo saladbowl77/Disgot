@@ -56,3 +56,5 @@ ORE:
         sendText: "&{UserName}が深成岩のダイヤモンドを見つけた!!"
 BED:
   SLEEP_NOTICE: true
+DEATH_MESSAGE:
+  LANG: "ja_jp"

@@ -6,12 +6,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 
-import javax.security.auth.login.LoginException;
-
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import work.saladbowl.disgot.api.MinecraftLang;
 import work.saladbowl.disgot.discord.discmain;
+import work.saladbowl.disgot.spigot.PaperChatListener;
+import work.saladbowl.disgot.spigot.SpigotChatListener;
 import work.saladbowl.disgot.spigot.sEvent;
 
 
@@ -23,7 +24,13 @@ public final class Disgot extends JavaPlugin {
     @Override
     public void onEnable() {
         plugin = this;
-        getServer().getPluginManager().registerEvents(new sEvent(this),this);
+        getServer().getPluginManager().registerEvents(new sEvent(this), this);
+        try {
+            Class.forName("io.papermc.paper.event.player.AsyncChatEvent");
+            getServer().getPluginManager().registerEvents(new PaperChatListener(this), this);
+        } catch (ClassNotFoundException e) {
+            getServer().getPluginManager().registerEvents(new SpigotChatListener(this), this);
+        }
         saveDefaultConfig();
         Config.load();
         //getLogger().info("Hello!");
@@ -43,11 +50,14 @@ public final class Disgot extends JavaPlugin {
             }
         }
 
-        try {
-            discmain.launch();
-        } catch (LoginException e) {
-            e.printStackTrace();
+        if (Config.DEATH_MESSAGE_LANG != null && !Config.DEATH_MESSAGE_LANG.isEmpty()) {
+            Bukkit.getScheduler().runTaskAsynchronously(this, () ->
+                MinecraftLang.load(Config.DEATH_MESSAGE_LANG)
+            );
         }
+
+        discmain.launch();
+        MessageSync.initWebhook();
         try {
             /*
             //チャンネルの概要変更

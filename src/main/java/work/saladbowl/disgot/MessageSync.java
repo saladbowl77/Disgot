@@ -1,8 +1,10 @@
 package work.saladbowl.disgot;
 
+import com.google.gson.JsonObject;
 import org.bukkit.Bukkit;
 
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Webhook;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.entities.channel.concrete.VoiceChannel;
 
@@ -11,7 +13,51 @@ import net.md_5.bungee.api.chat.TextComponent;
 
 import work.saladbowl.disgot.discord.discmain;
 
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+
 public class MessageSync {
+    private static volatile String webhookUrl = null;
+    private static final HttpClient httpClient = HttpClient.newHttpClient();
+
+    public static void initWebhook() {
+        TextChannel channel = getTextChannel();
+        if (channel == null) return;
+
+        channel.retrieveWebhooks().queue(webhooks -> {
+            Webhook existing = webhooks.stream()
+                .filter(w -> w.getOwner() != null &&
+                             "Disgot".equals(w.getName()) &&
+                             w.getOwner().getIdLong() == discmain.jda.getSelfUser().getIdLong())
+                .findFirst().orElse(null);
+
+            if (existing != null) {
+                webhookUrl = existing.getUrl();
+                Bukkit.getLogger().info("[Disgot] Webhook ready");
+            } else {
+                channel.createWebhook("Disgot").queue(w -> {
+                    webhookUrl = w.getUrl();
+                    Bukkit.getLogger().info("[Disgot] Webhook created");
+                });
+            }
+        }, err -> Bukkit.getLogger().warning("[Disgot] Webhook init failed (MANAGE_WEBHOOKS required): " + err.getMessage()));
+    }
+
+    private static void sendWebhookMessage(String username, String content, String avatarUrl) {
+        JsonObject json = new JsonObject();
+        json.addProperty("content", content);
+        json.addProperty("username", username);
+        json.addProperty("avatar_url", avatarUrl);
+
+        HttpRequest request = HttpRequest.newBuilder()
+            .uri(URI.create(webhookUrl))
+            .header("Content-Type", "application/json")
+            .POST(HttpRequest.BodyPublishers.ofString(json.toString()))
+            .build();
+        httpClient.sendAsync(request, HttpResponse.BodyHandlers.discarding());
+    }
 
     public static void SyncMessage2spi(String guild, String name, String message){
         Bukkit.getLogger().info("[Disgot] server:" + guild + " user:" + name + " message:" + message);
@@ -33,9 +79,12 @@ public class MessageSync {
     }
 
 
-    public static void SyncMessage2disc(String name,String message) {
-        if(getTextChannel()!=null && !Config.MT_MINECRAFT_ONLY.equals(message.substring(0,1))){
-            String sendMessage = Config.MT_M2D.replace("&{UserName}",name).replace("&{message}",message);
+    public static void SyncMessage2disc(String name, String message) {
+        if (getTextChannel() == null || Config.MT_MINECRAFT_ONLY.equals(message.substring(0, 1))) return;
+        if (webhookUrl != null) {
+            sendWebhookMessage(name, message, "https://minotar.net/helm/" + name);
+        } else {
+            String sendMessage = Config.MT_M2D.replace("&{UserName}", name).replace("&{message}", message);
             getTextChannel().sendMessage(sendMessage).queue();
         }
     }

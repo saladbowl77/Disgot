@@ -55,6 +55,8 @@ ORE:
         sendText: "&{UserName}が深成岩のダイヤモンドを見つけた!!"
 BED:
   SLEEP_NOTICE: true
+DEATH_MESSAGE:
+  LANG: "ja_jp"
 ```
 
 ## 各種項目内容
@@ -141,6 +143,11 @@ BED:
 |key name|type|about|default|
 |----|----|----|----|
 |SLEEP_NOTICE|Bool|ベッド就寝通知を送信するか。|true|
+
+### DEATH_MESSAGE
+|key name|type|about|default|
+|----|----|----|----|
+|LANG|String|死亡メッセージの翻訳に使用する言語コード。空文字にすると翻訳を無効化してサーバーのデフォルト言語を使用する。（例: ja_jp, zh_cn, en_us）|"ja_jp"|
 
 ## ※ &{UserName}と&{message}について  
 &{UserName}にはユーザー名、&{message}にはメッセージ内容が入ります。  

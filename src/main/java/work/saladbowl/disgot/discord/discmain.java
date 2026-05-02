@@ -1,7 +1,5 @@
 package work.saladbowl.disgot.discord;
 
-import javax.security.auth.login.LoginException;
-
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
@@ -18,7 +16,7 @@ import java.util.List;
 
 public class discmain{
     public static JDA jda;
-    public static void launch() throws LoginException {
+    public static void launch() {
         try {
             // Login 処理
             JDABuilder builder = JDABuilder.createLight(Config.TOKEN, GatewayIntent.GUILD_MESSAGES, GatewayIntent.MESSAGE_CONTENT, GatewayIntent.DIRECT_MESSAGES)
