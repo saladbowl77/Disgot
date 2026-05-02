@@ -54,6 +54,8 @@ public class Config {
 
     public static Boolean BED_SLEEP_NOTICE;
 
+    public static String DEATH_MESSAGE_LANG;
+
     public static String WhitelistDBPath = "mcid-discordid-db.json";
 
     public static void load() {
@@ -102,6 +104,8 @@ public class Config {
         ORE_GET_NOTICE_LIST = config.getMapList("ORE.GET_NOTICE.NOTICE_LIST");
 
         BED_SLEEP_NOTICE = config.getBoolean("BED.SLEEP_NOTICE");
+
+        DEATH_MESSAGE_LANG = config.getString("DEATH_MESSAGE.LANG", "");
     }
 }
 

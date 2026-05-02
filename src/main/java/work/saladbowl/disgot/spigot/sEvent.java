@@ -13,9 +13,11 @@ import org.bukkit.event.player.*;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 
+import net.kyori.adventure.text.Component;
 import work.saladbowl.disgot.Config;
 import work.saladbowl.disgot.Disgot;
 import work.saladbowl.disgot.MessageSync;
+import work.saladbowl.disgot.api.MinecraftLang;
 
 public class sEvent implements Listener {
     public static Disgot plugin;
@@ -69,6 +71,16 @@ public class sEvent implements Listener {
 
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent e){
+        if (Config.DEATH_MESSAGE_LANG != null && !Config.DEATH_MESSAGE_LANG.isEmpty()) {
+            Component deathComp = e.deathMessage();
+            if (deathComp != null) {
+                String translated = MinecraftLang.translate(deathComp);
+                if (translated != null) {
+                    MessageSync.sendMessage2disc(translated);
+                    return;
+                }
+            }
+        }
         String msg = e.getDeathMessage();
         if (msg != null) MessageSync.sendMessage2disc(msg);
     }

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import work.saladbowl.disgot.api.MinecraftLang;
 import work.saladbowl.disgot.discord.discmain;
 import work.saladbowl.disgot.spigot.PaperChatListener;
 import work.saladbowl.disgot.spigot.SpigotChatListener;
@@ -47,6 +48,12 @@ public final class Disgot extends JavaPlugin {
             }catch(IOException e){
                 Bukkit.getLogger().warning(e.toString());
             }
+        }
+
+        if (Config.DEATH_MESSAGE_LANG != null && !Config.DEATH_MESSAGE_LANG.isEmpty()) {
+            Bukkit.getScheduler().runTaskAsynchronously(this, () ->
+                MinecraftLang.load(Config.DEATH_MESSAGE_LANG)
+            );
         }
 
         discmain.launch();
